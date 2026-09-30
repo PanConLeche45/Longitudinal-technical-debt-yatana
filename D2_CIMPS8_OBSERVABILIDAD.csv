@@ -1,0 +1,9 @@
+proyecto,rama_principal,total_commits,primer_commit,ultimo_commit,num_tags,estructura_java,ruta_java_principal,prefijo_jira,commits_con_jira,observaciones
+checkstyle,master,19742,2001-06-22,2026-09-30,225,mono-modulo,src/main/java,GITHUB_ISSUES,0,"sin observaciones"
+commons-collections,master,5696,2001-04-14,2026-09-29,59,mono-modulo,src/main/java,COLLECTIONS,531,"sin observaciones"
+commons-lang,master,10507,2002-07-19,2026-09-29,116,mono-modulo,src/main/java,LANG,1653,"sin observaciones"
+commons-math,master,8351,2003-05-12,2026-09-24,67,multi-modulo-profundo,commons-math-core/src/main/java,MATH,1927,"estructura profunda complica seguimiento de identidad"
+httpcomponents-client,master,5117,2005-12-21,2026-09-28,216,multi-modulo-profundo,httpclient5-jakarta-rest-client/src/main/java,HTTPCLIENT,1078,"estructura profunda complica seguimiento de identidad"
+junit4,main,2710,2000-12-03,2026-08-13,28,mono-modulo,src/main/java,GITHUB_ISSUES,0,"rama main (renombrada desde master)"
+maven,master,20250,2003-09-01,2026-09-30,115,multi-modulo-profundo,its/core-it-suite/src/test/resources/mng-5224/maven-it-plugin-settings/src/main/java,MNG,4619,"estructura profunda complica seguimiento de identidad"
+pdfbox,trunk,23827,2008-02-10,2026-09-29,84,multi-modulo-profundo,pdfbox-layout-awt/src/main/java,PDFBOX,13205,"rama trunk sugiere migracion desde Subversion; estructura profunda complica seguimiento de identidad"

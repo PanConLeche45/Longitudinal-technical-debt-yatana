@@ -1,0 +1,23 @@
+tipo_refactoring,total,en_commits_masivos,en_commits_individuales,pct_masivo
+Change Method Access Modifier,1836,1836,0,100.0
+Change Class Access Modifier,98,98,0,100.0
+Rename Class,12,0,12,0.0
+Remove Class Annotation,4,0,4,0.0
+Extract Method,4,0,4,0.0
+Rename Parameter,3,0,3,0.0
+Modify Method Annotation,2,0,2,0.0
+Remove Variable Annotation,2,0,2,0.0
+Change Attribute Access Modifier,2,0,2,0.0
+Assert Throws,2,0,2,0.0
+Rename Method,2,0,2,0.0
+Inline Variable,2,0,2,0.0
+Remove Method Annotation,1,0,1,0.0
+Remove Variable Modifier,1,0,1,0.0
+Change Attribute Type,1,0,1,0.0
+Encapsulate Attribute,1,0,1,0.0
+Change Parameter Type,1,0,1,0.0
+Add Attribute Modifier,1,0,1,0.0
+Add Method Annotation,1,0,1,0.0
+Inline Method,1,0,1,0.0
+Add Parameter Modifier,1,0,1,0.0
+Add Variable Modifier,1,0,1,0.0

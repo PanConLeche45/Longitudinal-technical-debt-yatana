@@ -1,0 +1,19 @@
+# Seleccion de archivos para el seguimiento de identidad longitudinal (D3)
+# Proyecto piloto: apache/commons-collections
+# Criterio: 5 archivos nacidos ANTES de 2010 (candidatos a haber vivido las
+# migraciones de paquete y de layout) y 5 nacidos DESPUES de 2010, para
+# contrastar si la fecha de nacimiento predice la complejidad de identidad.
+#
+# --- Grupo A: anteriores a 2010 ---
+src/main/java/org/apache/commons/collections4/CollectionUtils.java
+src/main/java/org/apache/commons/collections4/ListUtils.java
+src/main/java/org/apache/commons/collections4/MapUtils.java
+src/main/java/org/apache/commons/collections4/SetUtils.java
+src/main/java/org/apache/commons/collections4/IteratorUtils.java
+#
+# --- Grupo B: posteriores a 2010 ---
+src/main/java/org/apache/commons/collections4/map/PassiveExpiringMap.java
+src/main/java/org/apache/commons/collections4/trie/AbstractPatriciaTrie.java
+src/main/java/org/apache/commons/collections4/multimap/AbstractMultiValuedMap.java
+src/main/java/org/apache/commons/collections4/IterableUtils.java
+src/main/java/org/apache/commons/collections4/bloomfilter/BloomFilter.java

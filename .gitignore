@@ -1,0 +1,16 @@
+# Repositorios clonados (area de trabajo; se reconstruyen con git clone)
+repos/
+
+# Herramientas descargadas
+tools/
+
+# Temporales del sistema
+.DS_Store
+Thumbs.db
+*.swp
+*~
+*.tmp
+
+# IDEs
+.vscode/
+.idea/
