@@ -13,13 +13,14 @@
 | Elemento | Valor |
 |---|---|
 | Repositorio | `https://github.com/PanConLeche45/Longitudinal-technical-debt-yatana` |
-| Tag de esta entrega | `g1a-2026-09-30` |
+| Tag de esta entrega | `g1a-2026-10-05` |
 | `decision_time` | **2025-11-12** |
 | Commit de referencia del piloto | `e96986a5c61e8fc9e7a180579ef793253161b7c3` (2025-11-09) |
 | Release vigente en esa fecha | `rel/commons-collections-4.5.0` |
 | **Autoevaluación G1A** | **INCONCLUSIVE** (ver `Autoevaluacion_G1A.md`) |
 
-Todo lo mostrado en la presentación existe en la versión etiquetada.
+Todo lo mostrado en la presentación existe en la versión etiquetada. El tag
+anterior `g1a-2026-09-30` corresponde a la entrega sin D5 y se conserva.
 
 ---
 
@@ -36,7 +37,7 @@ sobre el mismo corpus de ocho proyectos Java, con **proyecto piloto distinto**:
 | **Y. Roa Moreno (este repositorio)** | **`commons-collections`** | **2025-11-12** |
 
 El `decision_time` común hace comparables los resultados; el piloto distinto
-permite distinguir hallazgos locales de hallazgos sistémicos del corpus. La §8
+permite distinguir hallazgos locales de hallazgos sistémicos del corpus. La §9
 documenta dónde **coinciden** y dónde **divergen** los dos pilotos.
 
 ---
@@ -94,6 +95,12 @@ para un estudio longitudinal. Generado por
 
 *Ningún proyecto fue excluido: el objetivo de D2 es conocer la observabilidad,
 no seleccionar.*
+
+**Nota sobre las cifras.** Los conteos corresponden a la extracción del
+2026-09-30. El entregable paralelo reporta cifras menores para los mismos
+proyectos porque su extracción se realizó entre el 15 y el 21 de septiembre: la
+diferencia es la actividad ocurrida entre ambas fechas, no una discrepancia de
+método.
 
 **Hallazgos:**
 
@@ -290,7 +297,13 @@ es generalizable**: depende de cómo cada proyecto ejecutó su migración.
 | 16 | Repositorio actual | COMPLETADO |
 | 17 | Demostración reproducible | COMPLETADO |
 | 18 | Autoevaluación G1A | COMPLETADO → **INCONCLUSIVE** |
-| 19 | Siguiente sprint | NO APLICA (condicionado a la revisión) |
+| 19 | Siguiente sprint | **PROPUESTA PRELIMINAR** en D5 §7; formalización condicionada al PASS de G1A |
+
+**Entregable del sprint (numeración independiente del checklist):**
+
+| Entregable | Estado |
+|---|---|
+| D5 — Plan de evolución CIMPS → estudio longitudinal | COMPLETADO (`D5_PLAN_EVOLUCION_CIMPS.md`) |
 
 ---
 
@@ -313,6 +326,7 @@ Longitudinal-technical-debt-yatana/
 ├── D4_REFACTORING_AUDIT_30.csv           auditoría de 30 eventos
 ├── D4_Analisis_Refactorings.md           análisis de D4
 ├── D4_TEMPORAL_LEAKAGE.md                punto 10 — ledger de 7 riesgos
+├── D5_PLAN_EVOLUCION_CIMPS.md            plan de evolución — deriva de D1–D4
 ├── D_Separacion_Temporal.md              punto 11
 ├── SNAPSHOTS_TEMPORALES.md               punto 7 — regla definida
 ├── PROVENANCE_INTEGRIDAD.md              punto 13 — cadena + hashes
@@ -387,3 +401,6 @@ Para no sobre-interpretar la evidencia:
 5. **Cruzar** `D4_REFACTORING_EVENTS_RAW.csv` con `D3_EVOLUTION_DATASET.csv` por
    `(entity_id, commit)`.
 6. **Análisis de sensibilidad** al umbral de 50 archivos.
+
+El orden de ejecución propuesto para estos puntos está en
+`D5_PLAN_EVOLUCION_CIMPS.md` §6.7.
