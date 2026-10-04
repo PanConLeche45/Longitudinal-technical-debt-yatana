@@ -199,3 +199,72 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   no está construida.
 - **Evidencia:** `SNAPSHOTS_TEMPORALES.md`.
 - **Estado:** **Abierto.** Primer entregable del siguiente sprint.
+
+---
+
+## 2026-10-05
+
+### E-04 · ERROR — Clasificación incompleta del tracker de `maven`
+- **Problema:** D2 clasificaba `maven` únicamente como usuario de JIRA. El
+  proyecto usa JIRA (MNG) **y** GitHub Issues de forma simultánea.
+- **Causa:** `build_observability_inventory.sh` deduce el tracker a partir de
+  los prefijos de ticket presentes en los mensajes de commit. `maven` usa `MNG-`
+  en 4,619 commits, por lo que el script concluyó JIRA y no comprobó si además
+  la pestaña Issues de GitHub estaba activa. El método de detección no puede
+  observar ese dato: vive en la configuración del repositorio, no en el
+  historial.
+- **Consecuencia si no se corrige:** el recolector de contexto de la Ruta B
+  habría buscado el contexto de los cambios de `maven` en una sola de sus dos
+  fuentes, perdiendo los issues registrados en GitHub.
+- **Acción:** verificación manual del repositorio y corrección del campo
+  `external_tracker` a doble fuente. Se añadió al inventario la columna
+  `issues_available` para registrar este dato de forma explícita en los ocho
+  proyectos.
+- **Evidencia:** `github.com/apache/maven` — pestaña Issues activa con 582
+  issues abiertos; el README del proyecto dirige los reportes de bugs a
+  `github.com/apache/maven/issues`. Verificado el 2026-10-05.
+- **Hallazgo derivado:** el corpus no tiene dos modelos de ubicación del
+  contexto, sino tres. El caso de doble fuente obliga a unificar y resolver
+  duplicados antes de usar el contexto como variable.
+- **Estado:** **Corregido.** La divergencia con el entregable paralelo, que
+  clasificaba `maven` correctamente desde el inicio, queda resuelta a favor de
+  aquél.
+
+### E-05 · ERROR — `ruta_java_principal` apunta a módulos periféricos
+- **Problema:** en los cuatro proyectos multi-módulo, la ruta registrada no
+  corresponde al código principal. El caso más claro es `maven`, donde la ruta
+  registrada apuntaba a un recurso de prueba dentro de la suite de tests de
+  integración (`its/core-it-suite/src/test/resources/...`), que no es código de
+  producción.
+- **Causa:** el script toma la primera coincidencia de `src/main/java` que
+  devuelve `find`, y ese orden no tiene relación con la importancia del módulo.
+- **Consecuencia si no se corrige:** cualquier selección de archivos basada en
+  esa ruta analizaría módulos periféricos o código de prueba en lugar del
+  núcleo del proyecto, invalidando la comparación entre proyectos.
+- **Acción:** PENDIENTE — inspeccionar manualmente los cuatro proyectos
+  multi-módulo y registrar la ruta del módulo principal. Documentar aquí el
+  criterio adoptado para decidir cuál es "el módulo principal": módulo raíz
+  declarado en el POM, mayor volumen de código, u otro.
+- **Alcance:** afecta a `commons-math`, `httpcomponents-client`, `maven` y
+  `pdfbox`. Los cuatro mono-módulo no están afectados.
+- **Nota:** el piloto de este trabajo, `commons-collections`, es mono-módulo,
+  por lo que ni D3 ni D4 están afectados por este error. El impacto se limita al
+  inventario D2 y a la futura ampliación del estudio al corpus completo.
+- **Evidencia:** `D2_CIMPS8_OBSERVABILIDAD.csv`, columna `ruta_java_principal`,
+  valores marcados `VERIFICAR`.
+- **Estado:** **Abierto.**
+
+### D-07 · Decisión — Completar el inventario con las columnas del entregable
+- **Decisión:** ampliar `D2_CIMPS8_OBSERVABILIDAD.csv` con los campos
+  `repository_url`, `issues_available`, `pull_requests_available`,
+  `external_tracker`, `recent_activity`, `rename_move_evidence`, `main_risk` y
+  `evidence`.
+- **Causa:** la tabla mínima del entregable D2 los exige, y el criterio de
+  aceptación pide que cada dato importante tenga evidencia asociada. La versión
+  anterior del inventario registraba los datos obtenibles por script pero no los
+  que requieren inspección de la interfaz de GitHub.
+- **Limitación reconocida:** los campos marcados `PENDIENTE` corresponden a
+  datos que solo pueden obtenerse inspeccionando cada repositorio en GitHub.
+  Mientras sigan marcados así, el inventario no cumple el criterio de
+  aceptación de D2.
+- **Estado:** Estructura completada; relleno **pendiente**.
