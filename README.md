@@ -90,7 +90,7 @@ para un estudio longitudinal. Generado por
 | commons-math | master | 8,351 | 2003-05-12 | 2026-09-24 | 67 | multi-módulo profundo | JIRA (MATH) |
 | httpcomponents-client | master | 5,117 | 2005-12-21 | 2026-09-28 | 216 | multi-módulo profundo | JIRA (HTTPCLIENT) |
 | junit4 | main | 2,710 | 2000-12-03 | 2026-08-13 | 28 | mono-módulo | GitHub Issues |
-| maven | master | 20,250 | 2003-09-01 | 2026-09-30 | 115 | multi-módulo profundo | JIRA (MNG) |
+| maven | master | 20,250 | 2003-09-01 | 2026-09-30 | 115 | multi-módulo profundo | JIRA (MNG) + GitHub Issues |
 | pdfbox | trunk | 23,827 | 2008-02-10 | 2026-09-29 | 84 | multi-módulo profundo | JIRA (PDFBOX) |
 
 *Ningún proyecto fue excluido: el objetivo de D2 es conocer la observabilidad,
@@ -105,9 +105,12 @@ método.
 **Hallazgos:**
 
 1. **El contexto de un cambio no vive en el mismo sitio en todos los proyectos.**
-   Seis usan JIRA (con la pestaña Issues de GitHub desactivada) y dos usan
-   GitHub Issues. Para la Ruta B esto significa que la recolección de contexto
-   debe adaptarse por proyecto.
+   Hay tres modelos: cinco proyectos concentran el contexto en JIRA con la
+   pestaña Issues de GitHub desactivada, dos lo tienen en GitHub Issues, y
+   `maven` usa ambos sistemas de forma simultánea. Para la Ruta B esto significa
+   que la recolección de contexto no solo debe adaptarse por proyecto, sino que
+   en al menos un caso deberá unificar dos fuentes y resolver los posibles
+   duplicados entre ellas.
 2. **La estructura del código varía mucho:** tres mono-módulo con
    `src/main/java` limpio y cinco multi-módulo profundo. Condiciona lo fácil que
    es seguir un archivo en el tiempo.
@@ -120,6 +123,13 @@ método.
 > erróneamente `checkstyle` y `junit4` como usuarios de JIRA, por falsos
 > positivos con `UTF-8` y `GHSA-xxxx`. Corregido con lista de exclusión y umbral
 > mínimo. Ver `BITACORA_ERRORES_DECISIONES.md`.
+
+> **Nota de bitácora (E-02):** la primera versión de D2 clasificó `maven`
+> únicamente como JIRA, porque el script detecta el tracker a partir de los
+> prefijos de ticket en los mensajes de commit y `maven` los usa. La
+> verificación directa del repositorio mostró además la pestaña Issues de
+> GitHub activa. Corregido a doble fuente. Ver
+> `BITACORA_ERRORES_DECISIONES.md`.
 
 ---
 

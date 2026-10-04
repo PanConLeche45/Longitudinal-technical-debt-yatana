@@ -79,12 +79,21 @@ Evidencia: `D4_Analisis_Refactorings.md`, `D4_REFACTORING_TIPOS.csv`,
 ### 2.5 Contexto de issues y pull requests, adaptado por proyecto
 
 Es el núcleo de la Ruta B y lo único que todavía no se ha tocado. D2 muestra que
-la recolección no puede ser uniforme: seis proyectos usan JIRA con la pestaña
-Issues de GitHub desactivada, y dos usan GitHub Issues.
+la recolección no puede ser uniforme: cinco proyectos concentran el contexto en
+JIRA con la pestaña Issues de GitHub desactivada, dos lo tienen en GitHub
+Issues, y `maven` usa ambos sistemas a la vez.
 
-«PENDIENTE DE VERIFICAR: el entregable paralelo clasifica `maven` como
-JIRA + GitHub Issues; esta entrega lo clasifica solo como JIRA. Confirmar cuál
-es correcto antes de cerrar D2.»
+**Corrección registrada (2026-10-05, E-02).** La versión inicial de D2
+clasificaba `maven` únicamente como JIRA. La verificación directa del
+repositorio mostró la pestaña Issues activa con 582 issues abiertos y el propio
+README del proyecto dirigiendo ahí los reportes de bugs. `maven` usa ambos
+sistemas, lo que eleva a tres los modelos de ubicación del contexto en el
+corpus.
+
+Consecuencia para el diseño: el recolector no puede asumir una fuente única por
+proyecto. En el caso de doble fuente habrá que unificar y resolver duplicados —
+un mismo defecto puede estar registrado en los dos sistemas— antes de usar el
+contexto como variable.
 
 ---
 
