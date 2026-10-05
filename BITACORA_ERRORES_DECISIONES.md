@@ -268,3 +268,70 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   Mientras sigan marcados así, el inventario no cumple el criterio de
   aceptación de D2.
 - **Estado:** Estructura completada; relleno **pendiente**.
+
+---
+
+# Sprint 1 — Línea E3 (hotspot / co-change)
+
+## 2026-10-05
+
+### D-08 · Decisión — Construir E3 en los dos pilotos
+- **Decisión:** el extractor E3 se ejecuta en `commons-collections` (mi piloto, integrado con mi E2) y
+  en `commons-lang` (piloto de Willian, integrado con su E2).
+- **Causa:** el correo pide trabajar "sobre el mismo proyecto piloto" y una tabla conjunta con la llave
+  `project + artifact_id + decision_time`; la redacción admite ambas lecturas y el script es genérico.
+- **Estado:** **pendiente de confirmar** con el profesor cuál es el piloto oficial de la tabla integrada.
+
+### D-09 · Decisión — Transacción = commit; corte = ancestros del decision commit
+- **Decisión:** un co-change es aparecer en el mismo commit no-merge. Sólo se usan commits ancestros del
+  decision commit (`git log <sha>`), y además se verifica que ninguna fecha supere el decision_time.
+- **Causa:** agrupar por día (Bochicchio et al., 2025) mezcla trabajo no relacionado; `--before=fecha`
+  admitiría commits fechados antes pero integrados después.
+- **Evidencia:** `sprint1_E3/out/*/E3_RUN_MANIFEST_*.json`, `TEMPORAL_CHECK.json`.
+
+### D-10 · Decisión — Umbral de commit masivo en 50 (igual que D-04), 100 como sensibilidad
+- **Decisión:** se excluyen del conteo los commits con > 50 archivos de producción.
+- **Causa:** coherencia con D-04 de G1A, fijado antes de ver resultados de E3; 100 es el umbral de
+  D'Ambros et al. (2009) y se corre como análisis de sensibilidad (pendiente 6 de G1A).
+- **Resultado:** ρ(50 vs 100) = 0.97 para M1 y M2 en commons-collections; 0.99 en commons-lang.
+
+### D-11 · Decisión — Identidad con `-M` por commit, no con `--follow`
+- **Decisión:** los renombres se resuelven con la detección de Git dentro de cada commit y se mapean a la
+  ruta vigente en el decision commit. Tests excluidos del universo.
+- **Causa:** H-04.
+
+### D-12 · Decisión — Dos medidas candidatas fijadas a priori
+- **Decisión:** M1 = grado de co-change (k = 2), M2 = confianza máxima (k = 2). Ninguna se modifica en
+  este sprint aunque muestren limitaciones (H-06).
+- **Evidencia:** `sprint1_E3/M_MEDIDAS_CANDIDATAS.md`.
+
+### E-06 · ERROR — `entity_id` no identifica de forma única al artefacto
+- **Problema:** en `D3_EVOLUTION_DATASET.csv`, tres filas tienen `entity_id = package-info`
+  (`trie/`, `splitmap/`, `map/`).
+- **Consecuencia si no se corrige:** la llave `project + artifact_id + decision_time` sería ambigua y la
+  integración uniría filas equivocadas.
+- **Acción:** `sprint1_E3/data/ARTIFACTS_commons-collections.csv` asigna `artifact_id` C001–C030 en el
+  orden del dataset, conservando `entity_id` y la ruta. El extractor aborta si la llave no es única.
+- **Estado:** **Mitigado** en Sprint 1; el dataset de G1A no se modifica.
+
+### H-04 · HALLAZGO — `git log --follow` construye linajes falsos en E2
+- **Observación:** `prior_commits = n_commits_e3 + commits masivos` se cumple exactamente en 16/30
+  archivos de commons-collections y 19/30 de commons-lang; en el resto `--follow` salta a archivos
+  parecidos (p. ej. `Get.java` → `TestAll`, `HashBag`; `ListOrderedSet` → colecciones primitivas;
+  en commons-lang hasta `LICENSE`). Diferencia máxima: 62 commits (C007).
+- **Impacto:** puntos 6 y 8 de G1A; el estrato MEDIO de ambos datasets está sobrerrepresentado por
+  archivos inflados; la verificación manual con el mismo `--follow` no era independiente.
+- **Evidencia:** `sprint1_E3/HALLAZGO_LINAJE_FOLLOW.md`, columna `check_e2_minus_e3`.
+- **Estado:** **Abierto** — revisar con Willian; no eliminar archivos.
+
+### H-05 · HALLAZGO — El co-change reciente es mayoritariamente cosmético
+- **Observación:** 8 de 10 commits recientes de commons-collections y 6 de 10 de commons-lang son de
+  Javadoc; en commons-collections todos los pares repetidos de la práctica son cosméticos. En
+  SynchronizedQueue, 6 de sus 7 socios de M1 provienen de dos barridos (comentarios, ortografía).
+- **Relación:** *tangled changes* (Herzig, Just & Zeller, 2016), pendiente en D1.
+- **Estado:** Documentado como amenaza de constructo; posible filtro en el siguiente sprint.
+
+### H-06 · HALLAZGO — M1 replica a E2; M2 aporta información pero es inestable
+- **Observación:** ρ(M1, prior_commits) = 0.96 (collections) / 0.87 (lang); ρ(M2, prior_commits) =
+  −0.13 / 0.33; en collections M2 correlaciona −0.58 con LOC (valores altos en archivos pequeños).
+- **Estado:** exploratorio (n = 30 por piloto). El valor incremental se medirá en el experimento.

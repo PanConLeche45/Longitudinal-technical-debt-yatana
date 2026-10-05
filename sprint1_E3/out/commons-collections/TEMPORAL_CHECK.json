@@ -1,0 +1,34 @@
+{
+  "manifests": [
+    {
+      "file": "E3_RUN_MANIFEST_commons-collections_2024-12-15_mf50.json",
+      "decision_time": "2024-12-15",
+      "max_committer_date_used": "2024-12-15T10:07:36-05:00",
+      "commits_used": 1862,
+      "ok": true
+    },
+    {
+      "file": "E3_RUN_MANIFEST_commons-collections_2025-04-19_mf50.json",
+      "decision_time": "2025-04-19",
+      "max_committer_date_used": "2025-04-19T09:38:10-04:00",
+      "commits_used": 1889,
+      "ok": true
+    },
+    {
+      "file": "E3_RUN_MANIFEST_commons-collections_2025-11-12_mf100.json",
+      "decision_time": "2025-11-12",
+      "max_committer_date_used": "2025-11-08T14:38:42-05:00",
+      "commits_used": 1925,
+      "ok": true
+    },
+    {
+      "file": "E3_RUN_MANIFEST_commons-collections_2025-11-12_mf50.json",
+      "decision_time": "2025-11-12",
+      "max_committer_date_used": "2025-11-08T14:38:42-05:00",
+      "commits_used": 1915,
+      "ok": true
+    }
+  ],
+  "monotonicity_violations": [],
+  "not_born_yet": []
+}

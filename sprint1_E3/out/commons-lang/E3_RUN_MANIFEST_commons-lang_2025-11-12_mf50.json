@@ -1,0 +1,39 @@
+{
+  "script": "scripts/extract_cochange.py",
+  "command": "sprint1_E3/scripts/extract_cochange.py --repo repos/commons-lang --project commons-lang --decision-ref rel/commons-lang-3.20.0 --max-files 50 --artifacts sprint1_E3/data/E2_commons-lang_Willian_D3_EVOLUTION_DATASET.csv --out sprint1_E3/out/commons-lang",
+  "git_log_command": "git log --no-merges -M --name-status --format=@@%H|%cI|%aI 598dfc163b8b410fb3bb8794521206ec8dcec82a",
+  "execution_utc": "2026-10-14T20:06:22+00:00",
+  "git_version": "git version 2.43.0",
+  "python_version": "3.13.16",
+  "repo_remote": "https://github.com/apache/commons-lang.git",
+  "repo_head_at_run": "682a8ff5cddfeedecb98f62ac7c8d94b5ff65f33",
+  "project": "commons-lang",
+  "decision_ref": "rel/commons-lang-3.20.0",
+  "decision_sha": "598dfc163b8b410fb3bb8794521206ec8dcec82a",
+  "decision_time": "2025-11-12",
+  "decision_commit_date": "2025-11-12T19:55:59+00:00",
+  "params": {
+    "max_files": 50,
+    "k": 2,
+    "include_tests": false,
+    "no_merges": true,
+    "rename_detection": "-M"
+  },
+  "universe_size": 259,
+  "range": {
+    "first_commit_used": "6627f7ad8fb08d6c23b83d6c9f0a6830e9e7085a",
+    "first_commit_date": "2002-07-19T03:35:56+00:00",
+    "last_commit_used": "3d673ad82c2cdc67c12cc517a4f334fd84fe2e3b",
+    "last_commit_date": "2025-11-11T13:12:34-05:00"
+  },
+  "n_commits_in_history": 8764,
+  "n_commits_used": 4418,
+  "n_commits_excluded_large": 16,
+  "temporal_check": {
+    "max_committer_date_used": "2025-11-11T13:12:34-05:00",
+    "max_author_date_used": "2025-11-11T13:12:34-05:00",
+    "all_dates_le_decision_time": true,
+    "only_ancestors_of_decision_commit": true,
+    "commits_after_decision_in_clone_not_used": 1033
+  }
+}

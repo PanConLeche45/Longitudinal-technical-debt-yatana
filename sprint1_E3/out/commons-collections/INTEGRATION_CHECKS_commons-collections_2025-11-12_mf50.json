@@ -1,0 +1,19 @@
+{
+  "decision_sha": "e96986a5c61e8fc9e7a180579ef793253161b7c3",
+  "decision_time": "2025-11-12",
+  "e1_source": "provisional_git_show",
+  "keys_e2": 30,
+  "keys_e3": 30,
+  "issues": [],
+  "rows": 30,
+  "flagged_lineage": [
+    "C005",
+    "C007",
+    "C010",
+    "C012",
+    "C016",
+    "C017",
+    "C018",
+    "C019"
+  ]
+}
