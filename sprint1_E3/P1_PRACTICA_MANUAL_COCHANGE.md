@@ -12,7 +12,13 @@ git show --name-only --format='%h %cs %s' <SHA> -- src/main/java        # archiv
 git merge-base --is-ancestor <SHA> e96986a5c && echo "OK: es pasado"    # prueba de temporalidad
 ```
 
-> La tabla la lleno yo en mi terminal; lo que sigue es la **clave de verificación**.
+> **Ejecutada en mi equipo** (Windows 10, Git Bash) el **2026-10-14**. Salida completa en
+> `evidencia/P1_practica_manual_gitbash_2026-10-14.txt`. Resultado: **10 de 10 commits coinciden**
+> con la clave generada por el extractor; prueba de ancestro de `845c0e540` → `OK: es pasado`.
+>
+> Observación propia: en los commits recientes predomina el cambio de **un solo archivo** (18 de
+> los 23 commits más recientes); los commits con pareja son minoría, y `ConcurrentReferenceHashMap`
+> aparece en 3 de los 10 commits con pareja, siempre por Javadoc.
 
 ## A. commons-collections (mi piloto) — decision commit `e96986a5c` (2025-11-12)
 Prefijo omitido: `src/main/java/org/apache/commons/collections4/`

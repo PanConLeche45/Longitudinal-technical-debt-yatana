@@ -1,0 +1,86 @@
+Yatana@DESKTOP-53N6N3A MINGW64 ~/Desktop/proyecto mancilla/Longitudinal-technical-debt-yatana/proyecto (master)
+$ cd repos/commons-collections
+
+Yatana@DESKTOP-53N6N3A MINGW64 ~/Desktop/proyecto mancilla/Longitudinal-technical-debt-yatana/proyecto/repos/commons-collections (master)
+$ git log --no-merges --name-only --format='@@%h|%cs|%s' e96986a5c -- src/main/java | head -80
+@@f4d2b39ad|2025-11-08|Javadoc
+
+src/main/java/org/apache/commons/collections4/CollectionUtils.java
+src/main/java/org/apache/commons/collections4/MapUtils.java
+src/main/java/org/apache/commons/collections4/MultiMap.java
+src/main/java/org/apache/commons/collections4/map/MultiValueMap.java
+@@fda5b967b|2025-11-01|Javadoc
+
+src/main/java/org/apache/commons/collections4/map/ConcurrentReferenceHashMap.java
+@@9d9f159a5|2025-10-11|Use final
+
+src/main/java/org/apache/commons/collections4/iterators/IteratorChain.java
+@@8c9ab3d19|2025-10-11|Take defaults into account even though they aren't used yet
+
+src/main/java/org/apache/commons/collections4/properties/OrderedProperties.java
+@@3ed2a3af9|2025-10-11|Simplify
+
+src/main/java/org/apache/commons/collections4/properties/SortedProperties.java
+@@66d354406|2025-10-11|Simplify
+
+src/main/java/org/apache/commons/collections4/properties/SortedProperties.java
+@@415a24f56|2025-10-11|SortedProperties doesn't always process keys in sorted sequence
+
+src/main/java/org/apache/commons/collections4/properties/SortedProperties.java
+@@19119be9a|2025-10-10|[COLLECTIONS-877] OrderedProperties.stringPropertyNames() returns an unordered set
+
+src/main/java/org/apache/commons/collections4/properties/OrderedProperties.java
+@@8f97f5776|2025-10-07|Javadoc
+
+src/main/java/org/apache/commons/collections4/ArrayStack.java
+src/main/java/org/apache/commons/collections4/list/AbstractLinkedList.java
+@@ddef8cd63|2025-08-24|Bump org.apache.commons:commons-parent from 85 to 87
+
+src/main/java/org/apache/commons/collections4/properties/PropertiesFactory.java
+@@5ae4fb9b9|2025-08-20|Javadoc
+
+src/main/java/org/apache/commons/collections4/map/ConcurrentReferenceHashMap.java
+@@845c0e540|2025-08-19|[collections-722] deeply nested chainedIterator performance problems fixed (#628)
+
+src/main/java/org/apache/commons/collections4/iterators/IteratorChain.java
+src/main/java/org/apache/commons/collections4/iterators/UnmodifiableIterator.java
+@@87408a08f|2025-08-13|[collections-838] Fix exponential `hasValue()` performance (#633)
+
+src/main/java/org/apache/commons/collections4/iterators/IteratorChain.java
+@@79ca330e5|2025-08-05|Use Javadoc instead of HTML tag
+
+src/main/java/org/apache/commons/collections4/iterators/ExtendedIterator.java
+src/main/java/org/apache/commons/collections4/map/ConcurrentReferenceHashMap.java
+@@a41f78960|2025-07-31|Add package private unwrap() method
+
+src/main/java/org/apache/commons/collections4/iterators/UnmodifiableIterator.java
+@@410c5db8d|2025-07-31|Javadoc: Close HTML tag
+
+src/main/java/org/apache/commons/collections4/iterators/UnmodifiableIterator.java
+@@2a427b090|2025-07-31|Fix exception message in org.apache.commons.collections4.iterators.UnmodifiableIterator.remove() to match java.util.Iterator.remove()
+
+src/main/java/org/apache/commons/collections4/iterators/UnmodifiableIterator.java
+@@62f29d9f5|2025-07-20|Merge some string literals
+
+src/main/java/org/apache/commons/collections4/trie/AbstractPatriciaTrie.java
+@@bdb6bb271|2025-05-21|Javadoc
+
+src/main/java/org/apache/commons/collections4/functors/FunctorUtils.java
+@@3344bf330|2025-05-21|Internale refactoring
+
+src/main/java/org/apache/commons/collections4/functors/FunctorUtils.java
+@@293fcb194|2025-05-21|Fix exception message in org.apache.commons.collections4.functors.FunctorUtils.validate(Consumer<?>...)
+
+src/main/java/org/apache/commons/collections4/functors/FunctorUtils.java
+@@6af02cebe|2025-05-21|Javadoc
+
+src/main/java/org/apache/commons/collections4/PredicateUtils.java
+@@8ee475dcc|2025-05-20|Update Apache License URL to HTTPS
+
+src/main/java/org/apache/commons/collections4/ArrayStack.java
+src/main/java/org/apache/commons/collections4/ArrayUtils.java
+src/main/java/org/apache/commons/collections4/Bag.java
+src/main/java/org/apache/commons/collections4/BagUtils.java
+src/main/java/org/apache/commons/collections4/BidiMap.java
+src/main/java/org/apache/commons/collections4/BoundedCollection.java
+

@@ -1,0 +1,78 @@
+# Práctica manual de co-change — ejecutada por Yatana Roa en su equipo
+# Equipo: Windows 10, Git Bash (MINGW64), usuario Yatana@DESKTOP-53N6N3A
+# Fecha: 2026-10-14 14:18 (America/Mexico_City)
+# Repositorio: repos/commons-collections (clon de solo lectura) · decision commit e96986a5c
+
+$ git log --no-merges --name-only --format='@@%h|%cs|%s' e96986a5c -- src/main/java | awk '
+/^@@/ { if (n>=2 && n<=50 && c<10) { print h "  (" n " archivos)"; printf "%s", f; c++ }
+        h=$0; f=""; n=0; next }
+NF    { n++; sub("src/main/java/org/apache/commons/collections4/",""); f=f "     " $0 "\n" }'
+@@f4d2b39ad|2025-11-08|Javadoc  (4 archivos)
+     CollectionUtils.java
+     MapUtils.java
+     MultiMap.java
+     map/MultiValueMap.java
+@@8f97f5776|2025-10-07|Javadoc  (2 archivos)
+     ArrayStack.java
+     list/AbstractLinkedList.java
+@@845c0e540|2025-08-19|[collections-722] deeply nested chainedIterator performance problems fixed (#628)  (2 archivos)
+     iterators/IteratorChain.java
+     iterators/UnmodifiableIterator.java
+@@79ca330e5|2025-08-05|Use Javadoc instead of HTML tag  (2 archivos)
+     iterators/ExtendedIterator.java
+     map/ConcurrentReferenceHashMap.java
+@@a4b0e7c79|2025-05-10|Remove deprecation annotation of org.apache.commons.collections4.Factory; this will be deprecated in 5.0 in favor of java.util.function.Supplier  (3 archivos)
+     Factory.java
+     Predicate.java
+     Transformer.java
+@@643039944|2025-04-19|Javadoc  (29 archivos)
+     Bag.java
+     CollectionUtils.java
+     EnumerationUtils.java
+     FluentIterable.java
+     IterableUtils.java
+     MultiSet.java
+     MultiValuedMap.java
+     SetUtils.java
+     bag/AbstractMapBag.java
+     bag/CollectionBag.java
+     bidimap/TreeBidiMap.java
+     bloomfilter/CountingBloomFilter.java
+     bloomfilter/LayerManager.java
+     comparators/BooleanComparator.java
+     iterators/CollatingIterator.java
+     iterators/EnumerationIterator.java
+     iterators/IteratorEnumeration.java
+     list/TreeList.java
+     map/CompositeMap.java
+     map/ConcurrentReferenceHashMap.java
+     map/FixedSizeSortedMap.java
+     multimap/AbstractMultiValuedMap.java
+     multiset/AbstractMapMultiSet.java
+     multiset/AbstractMultiSet.java
+     queue/CircularFifoQueue.java
+     sequence/EditCommand.java
+     set/ListOrderedSet.java
+     trie/AbstractBitwiseTrie.java
+     trie/AbstractPatriciaTrie.java
+@@cd8af14ad|2025-04-19|Javadoc  (2 archivos)
+     list/AbstractLinkedListJava21.java
+     properties/SortedProperties.java
+@@022030c55|2025-04-18|Javadoc  (8 archivos)
+     SetUtils.java
+     functors/AbstractPredicate.java
+     functors/CatchAndRethrowClosure.java
+     iterators/LazyIteratorChain.java
+     map/ConcurrentReferenceHashMap.java
+     multiset/AbstractMultiSet.java
+     properties/OrderedProperties.java
+     trie/KeyAnalyzer.java
+@@b4e7ff365|2025-03-23|Javadoc  (2 archivos)
+     map/LRUMap.java
+     trie/AbstractPatriciaTrie.java
+@@9ead80ce2|2025-03-05|Javadoc  (2 archivos)
+     ArrayUtils.java
+     CollectionUtils.java
+
+$ git merge-base --is-ancestor 845c0e540 e96986a5c && echo "OK: es pasado"
+OK: es pasado
