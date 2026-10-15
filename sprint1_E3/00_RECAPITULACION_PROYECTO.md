@@ -11,14 +11,16 @@ commons-collections, commons-lang, commons-math, httpcomponents-client, junit4, 
 **un único snapshot** por proyecto. Funciona como **línea base**, no como evidencia longitudinal: una
 foto no permite afirmar evolución, acumulación, persistencia ni predicción.
 
-> Pendiente: leer el artículo completo y anotar herramienta y columnas de las métricas estáticas (E1).
+> Leído (2026-10-15): unidad de análisis = **proyecto**; 16 indicadores de SonarQube por proyecto,
+> normalizados por KLOC. No hay métricas por archivo → E1 por archivo × tiempo se genera con SonarQube
+> local en el snapshot CIMPS. El snapshot de commons-collections es 4.5.0 (`7f7fb0244`), no 2025-11-12 (E-07).
 
 ## 2. Gate G1A (fase previa) (Ruta B: hotspots y contexto de commits/issues/PR)
 
 | | Yatana (este repo) | Willian |
 |---|---|---|
 | Piloto | **commons-collections** | commons-lang |
-| decision_time | 2025-11-12 · `e96986a5c` (rel vigente 4.5.0) | 2025-11-12 · `598dfc163` (rel 3.20.0) |
+| decision_time | G1A: 2025-11-12 · `e96986a5c` → **Sprint 1: 2025-04-19 · `7f7fb0244` (rel 4.5.0 = snapshot CIMPS, D-13)** | 2025-11-12 · `598dfc163` (rel 3.20.0 = snapshot CIMPS) |
 | D2 inventario 8 proyectos | Completo (E-04 maven doble tracker; E-05 rutas multi-módulo **abierto**) | Completo |
 | D3 identidad | 10 archivos, 21 eventos; cambio de paquete con **R095–R099** | 10 archivos, R100 |
 | D3 dataset | 30 × 6 + **recencia corregida** (84 commits masivos ≥ 50; 26/30 contaminados; sesgo máx. 2,509 días en SynchronizedQueue) | 30 × 6 |
