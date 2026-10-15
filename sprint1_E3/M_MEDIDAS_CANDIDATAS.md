@@ -25,16 +25,16 @@ no-merge, con ≤ 50 archivos de producción. Parámetros fijados **antes** de v
 
 ---
 
-## Ejemplo manual 1 — C028 `queue/SynchronizedQueue.java` (commons-collections, t = 2025-11-12)
+## Ejemplo manual 1 — C028 `queue/SynchronizedQueue.java` (commons-collections, t = 2025-04-19, snapshot CIMPS)
 
 ```bash
-git log --no-merges --format='%h %cs %s' e96986a5c -- src/main/java/org/apache/commons/collections4/queue/SynchronizedQueue.java
+git log --no-merges --format='%h %cs %s' 7f7fb0244 -- src/main/java/org/apache/commons/collections4/queue/SynchronizedQueue.java
 git show --name-only --format= <SHA> -- src/main/java | grep -c '\.java$'
 ```
 
 | Commit | Fecha | Mensaje | Arch. prod. | ¿Elegible? | Otros archivos |
 |---|---|---|---|---|---|
-| 8ee475dcc | 2025-05-20 | Update Apache License URL to HTTPS | 359 | **no** (masivo) | — |
+| ~~8ee475dcc~~ | 2025-05-20 | Update Apache License URL to HTTPS | 359 | **no: es FUTURO** respecto de 4.5.0 (no es ancestro de `7f7fb0244`) | — |
 | 3a5c5c283 | 2022-11-06 | (chore) Fix minor typos | 57 | **no** (masivo) | — |
 | 1e0646ee8 | 2022-05-31 | Remove noisy inline comments | 28 | sí | MapUtils, MultiMapUtils, PredicateUtils, SetUniqueList, AbstractMultiValuedMapDecorator, ListOrderedSet, + 21 más |
 | a6d53a764 | 2020-03-30 | Standardize on American English spelling of 'behavior' | 46 | sí | **QueueUtils**, MapUtils, MultiMapUtils, PredicateUtils, SetUniqueList, AbstractMultiValuedMapDecorator, ListOrderedSet, + 38 más |
@@ -42,13 +42,14 @@ git show --name-only --format= <SHA> -- src/main/java | grep -c '\.java$'
 | 9f1dabed5 | 2018-07-07 | Remove redundant type arguments | 1 | sí | (ninguno) |
 | c6dc370ab | 2018-01-02 | [COLLECTIONS-575] Synchronized queue wrapper in QueueUtils | 2 | sí | **QueueUtils** |
 
-- `n(f) = 4` elegibles (+ 3 masivos excluidos = 7 = `prior_commits` de mi E2 ✔)
+- `n(f) = 4` elegibles (+ 2 masivos excluidos = 6 = `prior_commits` de mi E2 en 2025-04-19 ✔)
+- En 2025-11-12 se agrega el barrido de licencia: masivos = 3, `prior_commits` = 7, y M1/M2 **no cambian** (el masivo se excluye)
 - Socios con `cc ≥ 2`: QueueUtils, MapUtils, MultiMapUtils, PredicateUtils, SetUniqueList,
   AbstractMultiValuedMapDecorator, ListOrderedSet → **M1 = 7**
 - Máximo `cc` = 2 → **M2 = 2 / 4 = 0.50**
 
-**Script** (`out/commons-collections/E3_COCHANGE_FEATURES_commons-collections_2025-11-12_mf50.csv`,
-fila C028): `n_commits_e3 = 4, n_commits_excluded_large = 3, ccd_k2 = 7, max_conf_k2 = 0.5` → **coincide**.
+**Script** (`out/commons-collections/E3_COCHANGE_FEATURES_commons-collections_2025-04-19_mf50.csv`,
+fila C028): `n_commits_e3 = 4, n_commits_excluded_large = 2, ccd_k2 = 7, max_conf_k2 = 0.5` → **coincide**.
 
 **Lectura crítica:** de los 7 socios, **sólo QueueUtils** tiene relación de diseño (COLLECTIONS-575);
 los otros 6 vienen de dos barridos cosméticos (comentarios y ortografía). Es el ejemplo más claro de

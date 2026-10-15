@@ -335,3 +335,44 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
 - **Observación:** ρ(M1, prior_commits) = 0.96 (collections) / 0.87 (lang); ρ(M2, prior_commits) =
   −0.13 / 0.33; en collections M2 correlaciona −0.58 con LOC (valores altos en archivos pequeños).
 - **Estado:** exploratorio (n = 30 por piloto). El valor incremental se medirá en el experimento.
+
+## 2026-10-15
+
+### E-07 · ERROR — El `decision_time` de G1A no era el snapshot CIMPS de commons-collections
+- **Problema:** G1A fijó `decision_time = 2025-11-12` (commit `e96986a5c`) y el README y
+  `SNAPSHOTS_TEMPORALES.md` afirman que "corresponde a la fecha del snapshot CIMPS". Según la Tabla 1
+  del artículo CIMPS, el snapshot de commons-collections es `rel/commons-collections-4.5.0`,
+  commit `7f7fb0244abc` (2025-04-19).
+- **Causa:** la fecha 2025-11-12 se tomó del entregable paralelo; corresponde al release 3.20.0 de
+  **commons-lang** (`598dfc163b8b`), que sí es el snapshot CIMPS de ese proyecto. No se cotejó con el
+  artículo porque no estaba disponible al construir G1A.
+- **Consecuencia si no se corrige:** E1 (métricas estáticas, continuación de CIMPS) y E2/E3 quedarían
+  observados en momentos distintos; la integración E1+E2+E3 no describiría el mismo estado del código.
+- **Acción:** D-13. Los entregables etiquetados de G1A (`g1a-2026-09-30`, `g1a-2026-10-05`) no se
+  reescriben; la corrección queda aquí y en `sprint1_E3/`.
+- **Evidencia:** artículo CIMPS, Tabla 1 (no se incluye en el repositorio por confidencialidad);
+  `git log -1 7f7fb0244` → 2025-04-19T13:58:13+00:00 "Prepare for the release candidate 4.5.0 RC1".
+- **Estado:** **Corregido** en Sprint 1.
+
+### D-13 · Decisión — Alinear el decision_time principal al snapshot CIMPS (4.5.0)
+- **Decisión:** decision_time principal de commons-collections = commit `7f7fb0244` (rel 4.5.0),
+  etiqueta de llave `2025-04-19`; corte de E2 = `2025-04-19T13:58:14+00:00` (1 s después del commit,
+  para incluirlo). Se verificó que, en ese corte, los commits con fecha ≤ corte en `master` son
+  exactamente los 4,851 ancestros de `7f7fb0244` (sin diferencias).
+- **Muestra:** se re-ejecutó `build_evolution_dataset.sh` en el corte para que la selección
+  estratificada use sólo información ≤ 4.5.0 (seleccionar con la actividad hasta 2025-11-12 sería
+  fuga por selección). Resultado: 29 de 30 archivos coinciden con G1A; sale `trie/package-info`
+  (C021), entra `ConcurrentReferenceHashMap` (C031). `artifact_id` estable por ruta.
+- **Se conserva** 2025-11-12 como momento posterior de la misma muestra y como integración
+  secundaria con la muestra de G1A.
+- **Evidencia:** `sprint1_E3/data/E2_commons-collections_2025-04-19/`,
+  `sprint1_E3/data/ARTIFACTS_commons-collections*.csv`, `sprint1_E3/scripts/run_e3.sh`.
+
+### H-07 · HALLAZGO — La magnitud de la contaminación por eventos globales depende del corte
+- **Observación:** con el mismo umbral (50), en 4.5.0 sólo **1 de 30** archivos tiene la recencia
+  contaminada (SynchronizedQueue, sesgo 1,583 días); en 2025-11-12 eran **26 de 30**. La diferencia
+  es el barrido de licencia del 2025-05-20, posterior al snapshot CIMPS.
+- **Implicación:** el hallazgo central de G1A (H-03) sigue siendo válido como mecanismo, pero la
+  cifra 26/30 es propia del corte elegido; en un diseño longitudinal cada snapshot debe
+  re-evaluarse.
+- **Evidencia:** `sprint1_E3/data/E2_commons-collections_2025-04-19/D3_EVOLUTION_DATASET_CORREGIDO.csv`.

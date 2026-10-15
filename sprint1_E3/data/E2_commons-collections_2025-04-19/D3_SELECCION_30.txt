@@ -1,0 +1,39 @@
+# Seleccion estratificada de 30 archivos - commons-collections
+# decision_time: 2025-04-19T13:58:14+00:00 | commit_ref: 7f7fb0244abc940a2e9dd28b67508c0483a58c3e
+# Universo: 359 archivos Java vivos con historial previo al corte
+#
+# ESTRATO ALTO (hotspots) - los 10 archivos con mas commits previos
+ALTO  src/main/java/org/apache/commons/collections4/CollectionUtils.java
+ALTO  src/main/java/org/apache/commons/collections4/MapUtils.java
+ALTO  src/main/java/org/apache/commons/collections4/ListUtils.java
+ALTO  src/main/java/org/apache/commons/collections4/IteratorUtils.java
+ALTO  src/main/java/org/apache/commons/collections4/map/AbstractReferenceMap.java
+ALTO  src/main/java/org/apache/commons/collections4/bidimap/TreeBidiMap.java
+ALTO  src/main/java/org/apache/commons/collections4/multiset/AbstractMapMultiSet.java
+ALTO  src/main/java/org/apache/commons/collections4/map/AbstractHashedMap.java
+ALTO  src/main/java/org/apache/commons/collections4/SetUtils.java
+ALTO  src/main/java/org/apache/commons/collections4/set/ListOrderedSet.java
+#
+# ESTRATO MEDIO - 10 archivos alrededor de la mediana
+MEDIO src/main/java/org/apache/commons/collections4/list/CursorableLinkedList.java
+MEDIO src/main/java/org/apache/commons/collections4/Get.java
+MEDIO src/main/java/org/apache/commons/collections4/bidimap/DualHashBidiMap.java
+MEDIO src/main/java/org/apache/commons/collections4/collection/PredicatedCollection.java
+MEDIO src/main/java/org/apache/commons/collections4/functors/ChainedTransformer.java
+MEDIO src/main/java/org/apache/commons/collections4/functors/ConstantTransformer.java
+MEDIO src/main/java/org/apache/commons/collections4/functors/OrPredicate.java
+MEDIO src/main/java/org/apache/commons/collections4/functors/WhileClosure.java
+MEDIO src/main/java/org/apache/commons/collections4/iterators/AbstractMapIteratorDecorator.java
+MEDIO src/main/java/org/apache/commons/collections4/iterators/ArrayListIterator.java
+#
+# ESTRATO BAJO (tranquilos) - 10 archivos con menos commits previos
+BAJO  src/main/java/org/apache/commons/collections4/sequence/ReplacementsHandler.java
+BAJO  src/main/java/org/apache/commons/collections4/splitmap/package-info.java
+BAJO  src/main/java/org/apache/commons/collections4/map/ConcurrentReferenceHashMap.java
+BAJO  src/main/java/org/apache/commons/collections4/map/package-info.java
+BAJO  src/main/java/org/apache/commons/collections4/properties/AbstractPropertiesFactory.java
+BAJO  src/main/java/org/apache/commons/collections4/iterators/ExtendedIterator.java
+BAJO  src/main/java/org/apache/commons/collections4/properties/OrderedProperties.java
+BAJO  src/main/java/org/apache/commons/collections4/queue/SynchronizedQueue.java
+BAJO  src/main/java/org/apache/commons/collections4/iterators/CartesianProductIterator.java
+BAJO  src/main/java/org/apache/commons/collections4/iterators/IteratorOperations.java

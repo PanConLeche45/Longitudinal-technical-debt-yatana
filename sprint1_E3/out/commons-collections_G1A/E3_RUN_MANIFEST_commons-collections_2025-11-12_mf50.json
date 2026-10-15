@@ -1,8 +1,8 @@
 {
   "script": "scripts/extract_cochange.py",
-  "command": "sprint1_E3/scripts/extract_cochange.py --repo repos/commons-collections --project commons-collections --decision-ref e96986a5c61e8fc9e7a180579ef793253161b7c3 --decision-time 2025-11-12 --max-files 100 --artifacts sprint1_E3/data/ARTIFACTS_commons-collections.csv --out sprint1_E3/out/commons-collections",
+  "command": "sprint1_E3/scripts/extract_cochange.py --repo repos/commons-collections --project commons-collections --decision-ref e96986a5c61e8fc9e7a180579ef793253161b7c3 --decision-time 2025-11-12 --artifacts sprint1_E3/data/ARTIFACTS_commons-collections_sel_G1A_2025-11-12.csv --out sprint1_E3/out/commons-collections_G1A",
   "git_log_command": "git log --no-merges -M --name-status --format=@@%H|%cI|%aI e96986a5c61e8fc9e7a180579ef793253161b7c3",
-  "execution_utc": "2026-10-14T20:06:16+00:00",
+  "execution_utc": "2026-10-15T15:51:52+00:00",
   "git_version": "git version 2.43.0",
   "python_version": "3.13.16",
   "repo_remote": "https://github.com/apache/commons-collections.git",
@@ -13,7 +13,7 @@
   "decision_time": "2025-11-12",
   "decision_commit_date": "2025-11-09T08:20:08-05:00",
   "params": {
-    "max_files": 100,
+    "max_files": 50,
     "k": 2,
     "include_tests": false,
     "no_merges": true,
@@ -27,8 +27,8 @@
     "last_commit_date": "2025-11-08T14:38:42-05:00"
   },
   "n_commits_in_history": 4859,
-  "n_commits_used": 1925,
-  "n_commits_excluded_large": 24,
+  "n_commits_used": 1915,
+  "n_commits_excluded_large": 34,
   "temporal_check": {
     "max_committer_date_used": "2025-11-08T14:38:42-05:00",
     "max_author_date_used": "2025-11-08T14:38:42-05:00",

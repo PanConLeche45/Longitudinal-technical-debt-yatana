@@ -46,6 +46,10 @@ def main():
     e2 = {}
     for r in read_csv(a.e2):
         r.setdefault("path", r.get("file_path"))
+        # E2 puede traer el decision_time con hora (p. ej. 2025-04-19T13:58:14+00:00):
+        # la llave usa sólo la fecha; la hora queda en e2_decision_cut para trazabilidad.
+        r["e2_decision_cut"] = r["decision_time"]
+        r["decision_time"] = r["decision_time"][:10]
         aid = amap.get(r["path"]) or r.get("artifact_id")
         r["artifact_id"] = aid
         e2[(a.project, aid, r["decision_time"])] = r
@@ -70,6 +74,9 @@ def main():
             continue
         if r2["decision_time"] != dt:
             checks["issues"].append(f"{key}: decision_time de E2 ≠ decision commit ({dt})")
+        cref = (r2.get("commit_ref") or "").strip()
+        if cref and not (sha.startswith(cref) or cref.startswith(sha)):
+            checks["issues"].append(f"{key}: commit de E2 ({cref[:9]}) ≠ commit de E3 ({sha[:9]})")
         path = r2["path"]
         if path != r3["path"]:
             checks["issues"].append(f"{key}: ruta distinta entre E2 y E3")

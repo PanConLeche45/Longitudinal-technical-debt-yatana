@@ -42,6 +42,34 @@ Prefijo omitido: `src/main/java/org/apache/commons/collections4/`
 **Pares con sentido de diseño (aparecen 1 vez):** IteratorChain ↔ UnmodifiableIterator (ticket
 COLLECTIONS-722) y Factory ↔ Predicate ↔ Transformer (decisión de API sobre deprecaciones).
 
+## A2. Repetición en el decision_time CIMPS — `7f7fb0244` (rel 4.5.0, 2025-04-19)
+
+Tras alinear el decision_time al snapshot de CIMPS (D-13), los 4 primeros commits de la tabla A
+(f4d2b39ad, 8f97f5776, 845c0e540, 79ca330e5) son **posteriores** al corte y no pueden usarse:
+
+```bash
+git merge-base --is-ancestor 845c0e540 7f7fb0244 && echo "pasado" || echo "FUTURO"   # → FUTURO
+```
+
+Los 10 commits con pareja (2–50 archivos) disponibles en 4.5.0 son:
+
+| # | Commit | Fecha | Mensaje | Nº |
+|---|---|---|---|---|
+| 1 | 643039944 | 2025-04-19 | Javadoc | 29 |
+| 2 | cd8af14ad | 2025-04-19 | Javadoc | 2 |
+| 3 | 022030c55 | 2025-04-18 | Javadoc | 8 |
+| 4 | b4e7ff365 | 2025-03-23 | Javadoc | 2 |
+| 5 | 9ead80ce2 | 2025-03-05 | Javadoc | 2 |
+| 6 | 4bb493225 | 2025-02-09 | Add Checkstyle MultipleVariableDeclarations | 2 |
+| 7 | 5690be041 | 2025-01-27 | Normalize spelling | 2 |
+| 8 | a0d7cb569 | 2025-01-27 | Normalize spelling | 12 |
+| 9 | b4346ecc6 | 2024-12-31 | Javadoc: English, not Latin | 17 |
+| 10 | 8875dad1b | 2024-12-26 | Replace 2x empty lines with a single one | 2 |
+
+**Los 10 son cosméticos** (Javadoc, ortografía, formato, estilo). El único par con sentido de
+diseño de la tabla A (COLLECTIONS-722) **todavía no existía** en el snapshot CIMPS. Este es el
+ejemplo de *leakage* prevenido para la demostración.
+
 ## B. commons-lang (piloto de Willian) — decision commit `598dfc163` (3.20.0, 2025-11-12)
 Prefijo omitido: `src/main/java/org/apache/commons/lang3/`
 
