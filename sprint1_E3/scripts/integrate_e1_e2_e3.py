@@ -83,7 +83,10 @@ def main():
         row = {"project": key[0], "artifact_id": key[1], "decision_time": key[2], "path": path}
         # ---- E1
         if a.e1:
-            src = e1.get(key, {})
+            src = e1.get(key)
+            if src is None:
+                checks["issues"].append(f"{key}: sin métricas E1 en {e1_source}")
+                src = {}
             for k, v in src.items():
                 if k not in ("project", "artifact_id", "decision_time", "path"):
                     row[f"e1_{k}"] = v
@@ -113,7 +116,10 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     outp = os.path.join(a.out, f"INTEGRATED_E1_E2_E3_{tag}.csv")
     with open(outp, "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
+        cols = []
+        for r in rows:
+            cols += [k for k in r if k not in cols]
+        w = csv.DictWriter(fh, fieldnames=cols)
         w.writeheader(); w.writerows(rows)
     checks["rows"] = len(rows)
     checks["flagged_lineage"] = [r["artifact_id"] for r in rows if r["check_e2_vs_e3_history"] != "ok"]
