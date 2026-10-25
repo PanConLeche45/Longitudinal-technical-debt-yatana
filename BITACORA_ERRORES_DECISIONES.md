@@ -394,3 +394,22 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   puede leer métricas, y si el proyecto ya está analizado se salta la reanálisis (`FORCE=1` para
   forzarla). `export_sonar_file_metrics.py` da un mensaje claro ante 401/403.
 - **Efecto en resultados:** ninguno; no se había generado ningún CSV de E1.
+
+### E1-01 · Resultado — E1 real con SonarQube 26.6 en el snapshot CIMPS (4.5.0, `7f7fb0244`)
+- **Comparación con CIMPS (Tabla 2, commons-collections):** NCLOC **32,688 = 32,688** (idéntico) y 359
+  archivos de producción = universo de E3. Code smells 1,205 vs 1,598 y deuda 18,406 vs 20,448 min:
+  la suma por archivo cubre sólo `src/main`; el nivel proyecto de SonarQube también cuenta issues de
+  archivos de prueba, y la versión/perfil de SonarQube puede diferir de la usada en CIMPS. El exportador
+  ahora registra los totales de proyecto y de pruebas en el manifiesto para explicar la diferencia.
+- **Fila de ejemplo:** C003 `ListUtils` = 255 NCLOC, 9 code smells, 165 min de deuda (el valor
+  provisional de 719 eran líneas físicas con comentarios).
+
+### E-09 · Error — Celdas vacías en E1 que significan cero
+- **Qué pasó:** SonarQube no devuelve en los archivos las medidas que valen su "mejor valor"
+  (`optimizedBestValue`); un archivo sin issues llegaba con `code_smells`, `sqale_index`, `bugs`, etc.
+  vacíos (163 de 359 archivos en code smells).
+- **Corrección:** para `code_smells, sqale_index, bugs, vulnerabilities, security_hotspots, violations,
+  duplicated_lines_density`, ausente = 0; el manifiesto cuenta cuántas celdas se rellenaron
+  (`absent_filled_with_zero`). Las demás métricas no se rellenan.
+- **Nota:** al regenerar E3 en Windows, git 2.51 escribe las fechas UTC como `Z` en lugar de `+00:00`;
+  mismo instante, mismos commits y mismos resultados (verificado).

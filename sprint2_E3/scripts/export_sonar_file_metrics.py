@@ -30,6 +30,11 @@ METRICS = ["ncloc", "functions", "classes", "complexity", "cognitive_complexity"
            "violations", "duplicated_lines_density", "sqale_rating", "reliability_rating",
            "security_rating"]
 PER_KLOC = ["sqale_index", "code_smells", "bugs", "vulnerabilities", "violations", "complexity"]
+# SonarQube no guarda en archivos las medidas iguales a su "mejor valor" (optimizedBestValue): un
+# archivo sin issues no trae code_smells, etc. en la respuesta. Ausente = 0 para estas métricas (E-09).
+ZERO_IF_ABSENT = ["code_smells", "sqale_index", "bugs", "vulnerabilities", "security_hotspots",
+                  "violations", "duplicated_lines_density"]
+PROJECT_METRICS = ["ncloc", "code_smells", "sqale_index", "bugs", "vulnerabilities", "violations"]
 
 
 def api(base, path, token, **params):
@@ -67,7 +72,7 @@ def main():
         for r in csv.DictReader(fh):
             amap[r["path"]] = r["artifact_id"]
 
-    rows, page = [], 1
+    rows, page, filled = [], 1, {k: 0 for k in ZERO_IF_ABSENT}
     while True:
         d = api(a.sonar_url, "api/measures/component_tree", token, component=a.project_key,
                 metricKeys=",".join(METRICS), qualifiers="FIL", ps=500, p=page)
@@ -80,6 +85,9 @@ def main():
                    "decision_time": a.decision_time, "path": path}
             for k in METRICS:
                 row[k] = m.get(k, "")
+                if row[k] == "" and k in ZERO_IF_ABSENT:
+                    row[k] = "0"
+                    filled[k] += 1
             try:
                 kloc = float(row["ncloc"]) / 1000.0
             except ValueError:
@@ -108,7 +116,8 @@ def main():
     try:
         qp = api(a.sonar_url, "api/qualityprofiles/search", token, project=a.project_key)
         profiles = [{"language": p["language"], "name": p["name"], "key": p["key"],
-                     "isDefault": p.get("isDefault")} for p in qp.get("profiles", [])]
+                     "isDefault": p.get("isDefault"), "activeRuleCount": p.get("activeRuleCount")}
+                    for p in qp.get("profiles", []) if p["language"] == "java"]
     except Exception as e:                                  # noqa: BLE001
         profiles = f"no disponible: {e}"
     try:
@@ -117,7 +126,28 @@ def main():
     except Exception as e:                                  # noqa: BLE001
         last = f"no disponible: {e}"
     totals = {k: sum(float(r[k]) for r in rows if str(r[k]).replace(".", "", 1).isdigit())
-              for k in ("ncloc", "code_smells", "sqale_index", "bugs", "violations")}
+              for k in PROJECT_METRICS}
+    # Nivel proyecto (lo que reporta CIMPS) y archivos de prueba (UTS), para explicar diferencias.
+    try:
+        pj = api(a.sonar_url, "api/measures/component", token, component=a.project_key,
+                 metricKeys=",".join(PROJECT_METRICS))
+        project_totals = {x["metric"]: float(x["value"]) for x in pj["component"].get("measures", [])}
+    except Exception as e:                                  # noqa: BLE001
+        project_totals = f"no disponible: {e}"
+    test_totals, tpage = {k: 0.0 for k in PROJECT_METRICS}, 1
+    try:
+        while True:
+            t = api(a.sonar_url, "api/measures/component_tree", token, component=a.project_key,
+                    metricKeys=",".join(PROJECT_METRICS), qualifiers="UTS", ps=500, p=tpage)
+            for c in t["components"]:
+                for x in c.get("measures", []):
+                    test_totals[x["metric"]] += float(x.get("value") or 0)
+            test_totals["test_files"] = test_totals.get("test_files", 0) + len(t["components"])
+            if tpage * 500 >= t["paging"]["total"]:
+                break
+            tpage += 1
+    except Exception as e:                                  # noqa: BLE001
+        test_totals = f"no disponible: {e}"
     manifest = {
         "script": "sprint2_E3/scripts/export_sonar_file_metrics.py",
         "command": " ".join(sys.argv),
@@ -131,6 +161,9 @@ def main():
         "files_exported": len(rows),
         "files_in_artifact_registry": sum(1 for r in rows if r["artifact_id"]),
         "file_level_totals": totals,
+        "absent_filled_with_zero": filled,
+        "project_level_totals": project_totals,
+        "test_file_totals": test_totals,
         "note": "Totales por archivo comparables con la Tabla 2 de CIMPS (nivel proyecto) para "
                 "verificar consistencia del instrumento; no son idénticos si cambia versión/perfil.",
     }
@@ -138,7 +171,8 @@ def main():
               "w", encoding="utf-8") as fh:
         json.dump(manifest, fh, indent=2, ensure_ascii=False)
     print(json.dumps({k: manifest[k] for k in ("sonarqube_version", "files_exported",
-                      "files_in_artifact_registry", "file_level_totals")}, indent=2, ensure_ascii=False))
+                      "files_in_artifact_registry", "file_level_totals",
+                      "project_level_totals", "test_file_totals")}, indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":
