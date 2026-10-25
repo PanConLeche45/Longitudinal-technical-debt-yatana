@@ -1,4 +1,4 @@
-# Gate G1A — Baseline longitudinal y evolución del estudio CIMPS
+# Sprint 1 — Baseline longitudinal y evolución del estudio CIMPS
 
 **Estudiante:** Yatana Roa Moreno — Matrícula **ZS23020600**
 **Universidad Veracruzana — Facultad de Ingeniería — Ingeniería de Software**
@@ -6,8 +6,8 @@
 **Proyecto piloto:** `apache/commons-collections`
 **Gate:** G1A · **Fecha:** 2026-09-30
 
-> **Sprint 1 (en curso, rama `sprint1-e3`):** línea E3 hotspot/co-change en
-> [`sprint1_E3/`](sprint1_E3/README.md). Incluye hallazgos que afectan a G1A
+> **Sprint 2 (en curso, rama `sprint2-e3`):** línea E3 hotspot/co-change en
+> [`sprint2_E3/`](sprint2_E3/README.md). Incluye hallazgos que afectan a G1A
 > (H-04 linaje de `--follow`, E-06 llave no única).
 
 ---

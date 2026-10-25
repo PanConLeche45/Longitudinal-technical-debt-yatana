@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# run_e3.sh — Reproduce TODA la evidencia E3 del Sprint 1 (ejecutar desde la raíz del repositorio)
-#   bash sprint1_E3/scripts/run_e3.sh
+# run_e3.sh — Reproduce TODA la evidencia E3 del Sprint 2 (ejecutar desde la raíz del repositorio)
+#   bash sprint2_E3/scripts/run_e3.sh
 # Requiere: git, python >= 3.8 (solo biblioteca estándar). No modifica los repositorios analizados.
 #
 # Diseño temporal (decisión D-13, 2026-10-15):
@@ -11,7 +11,7 @@
 #                         Integración secundaria: muestra de G1A en 2025-11-12.
 #   commons-lang        — decision_time = snapshot CIMPS 3.20.0 (598dfc163, 2025-11-12) + T3, T4 de Willian.
 set -euo pipefail
-S=sprint1_E3
+S=sprint2_E3
 CC=repos/commons-collections
 CL=repos/commons-lang
 [ -d "$CC" ] || git clone https://github.com/apache/commons-collections.git "$CC"

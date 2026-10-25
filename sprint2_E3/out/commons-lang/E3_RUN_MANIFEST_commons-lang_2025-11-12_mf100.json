@@ -1,8 +1,8 @@
 {
   "script": "scripts/extract_cochange.py",
-  "command": "sprint1_E3/scripts/extract_cochange.py --repo repos/commons-lang --project commons-lang --decision-ref rel/commons-lang-3.20.0 --max-files 100 --artifacts sprint1_E3/data/E2_commons-lang_Willian_D3_EVOLUTION_DATASET.csv --out sprint1_E3/out/commons-lang",
+  "command": "sprint2_E3/scripts/extract_cochange.py --repo repos/commons-lang --project commons-lang --decision-ref rel/commons-lang-3.20.0 --max-files 100 --artifacts sprint2_E3/data/E2_commons-lang_Willian_D3_EVOLUTION_DATASET.csv --out sprint2_E3/out/commons-lang",
   "git_log_command": "git log --no-merges -M --name-status --format=@@%H|%cI|%aI 598dfc163b8b410fb3bb8794521206ec8dcec82a",
-  "execution_utc": "2026-10-15T15:51:59+00:00",
+  "execution_utc": "2026-10-25T20:50:42+00:00",
   "git_version": "git version 2.43.0",
   "python_version": "3.13.16",
   "repo_remote": "https://github.com/apache/commons-lang.git",

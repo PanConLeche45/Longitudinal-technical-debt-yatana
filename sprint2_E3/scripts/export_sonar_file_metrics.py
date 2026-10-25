@@ -9,12 +9,12 @@ project + artifact_id + decision_time.
 
 Uso (Git Bash; el token se lee de la variable de entorno, nunca se escribe en archivos):
   export SONAR_TOKEN=...            # token generado en http://localhost:9000 (Mi cuenta → Seguridad)
-  python sprint1_E3/scripts/export_sonar_file_metrics.py \
+  python sprint2_E3/scripts/export_sonar_file_metrics.py \
       --sonar-url http://localhost:9000 --project-key commons-collections_4.5.0_7f7fb0244 \
       --project commons-collections --decision-time 2025-04-19 \
       --decision-sha 7f7fb0244abc940a2e9dd28b67508c0483a58c3e \
-      --artifacts sprint1_E3/data/ARTIFACTS_commons-collections.csv \
-      --out sprint1_E3/data
+      --artifacts sprint2_E3/data/ARTIFACTS_commons-collections.csv \
+      --out sprint2_E3/data
 
 Salidas:
   E1_FILE_METRICS_<project>_<decision_time>.csv   una fila por archivo de producción
@@ -113,7 +113,7 @@ def main():
     totals = {k: sum(float(r[k]) for r in rows if str(r[k]).replace(".", "", 1).isdigit())
               for k in ("ncloc", "code_smells", "sqale_index", "bugs", "violations")}
     manifest = {
-        "script": "sprint1_E3/scripts/export_sonar_file_metrics.py",
+        "script": "sprint2_E3/scripts/export_sonar_file_metrics.py",
         "command": " ".join(sys.argv),
         "execution_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sonarqube_version": version,

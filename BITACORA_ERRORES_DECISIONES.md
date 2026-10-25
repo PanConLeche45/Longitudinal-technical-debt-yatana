@@ -271,7 +271,7 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
 
 ---
 
-# Sprint 1 — Línea E3 (hotspot / co-change)
+# Sprint 2 — Línea E3 (hotspot / co-change)
 
 ## 2026-10-05
 
@@ -287,7 +287,7 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   decision commit (`git log <sha>`), y además se verifica que ninguna fecha supere el decision_time.
 - **Causa:** agrupar por día (Bochicchio et al., 2025) mezcla trabajo no relacionado; `--before=fecha`
   admitiría commits fechados antes pero integrados después.
-- **Evidencia:** `sprint1_E3/out/*/E3_RUN_MANIFEST_*.json`, `TEMPORAL_CHECK.json`.
+- **Evidencia:** `sprint2_E3/out/*/E3_RUN_MANIFEST_*.json`, `TEMPORAL_CHECK.json`.
 
 ### D-10 · Decisión — Umbral de commit masivo en 50 (igual que D-04), 100 como sensibilidad
 - **Decisión:** se excluyen del conteo los commits con > 50 archivos de producción.
@@ -303,16 +303,16 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
 ### D-12 · Decisión — Dos medidas candidatas fijadas a priori
 - **Decisión:** M1 = grado de co-change (k = 2), M2 = confianza máxima (k = 2). Ninguna se modifica en
   este sprint aunque muestren limitaciones (H-06).
-- **Evidencia:** `sprint1_E3/M_MEDIDAS_CANDIDATAS.md`.
+- **Evidencia:** `sprint2_E3/M_MEDIDAS_CANDIDATAS.md`.
 
 ### E-06 · ERROR — `entity_id` no identifica de forma única al artefacto
 - **Problema:** en `D3_EVOLUTION_DATASET.csv`, tres filas tienen `entity_id = package-info`
   (`trie/`, `splitmap/`, `map/`).
 - **Consecuencia si no se corrige:** la llave `project + artifact_id + decision_time` sería ambigua y la
   integración uniría filas equivocadas.
-- **Acción:** `sprint1_E3/data/ARTIFACTS_commons-collections.csv` asigna `artifact_id` C001–C030 en el
+- **Acción:** `sprint2_E3/data/ARTIFACTS_commons-collections.csv` asigna `artifact_id` C001–C030 en el
   orden del dataset, conservando `entity_id` y la ruta. El extractor aborta si la llave no es única.
-- **Estado:** **Mitigado** en Sprint 1; el dataset de G1A no se modifica.
+- **Estado:** **Mitigado** en Sprint 2; el dataset de G1A no se modifica.
 
 ### H-04 · HALLAZGO — `git log --follow` construye linajes falsos en E2
 - **Observación:** `prior_commits = n_commits_e3 + commits masivos` se cumple exactamente en 16/30
@@ -321,7 +321,7 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   en commons-lang hasta `LICENSE`). Diferencia máxima: 62 commits (C007).
 - **Impacto:** puntos 6 y 8 de G1A; el estrato MEDIO de ambos datasets está sobrerrepresentado por
   archivos inflados; la verificación manual con el mismo `--follow` no era independiente.
-- **Evidencia:** `sprint1_E3/HALLAZGO_LINAJE_FOLLOW.md`, columna `check_e2_minus_e3`.
+- **Evidencia:** `sprint2_E3/HALLAZGO_LINAJE_FOLLOW.md`, columna `check_e2_minus_e3`.
 - **Estado:** **Abierto** — revisar con Willian; no eliminar archivos.
 
 ### H-05 · HALLAZGO — El co-change reciente es mayoritariamente cosmético
@@ -349,10 +349,10 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
 - **Consecuencia si no se corrige:** E1 (métricas estáticas, continuación de CIMPS) y E2/E3 quedarían
   observados en momentos distintos; la integración E1+E2+E3 no describiría el mismo estado del código.
 - **Acción:** D-13. Los entregables etiquetados de G1A (`g1a-2026-09-30`, `g1a-2026-10-05`) no se
-  reescriben; la corrección queda aquí y en `sprint1_E3/`.
+  reescriben; la corrección queda aquí y en `sprint2_E3/`.
 - **Evidencia:** artículo CIMPS, Tabla 1 (no se incluye en el repositorio por confidencialidad);
   `git log -1 7f7fb0244` → 2025-04-19T13:58:13+00:00 "Prepare for the release candidate 4.5.0 RC1".
-- **Estado:** **Corregido** en Sprint 1.
+- **Estado:** **Corregido** en Sprint 2.
 
 ### D-13 · Decisión — Alinear el decision_time principal al snapshot CIMPS (4.5.0)
 - **Decisión:** decision_time principal de commons-collections = commit `7f7fb0244` (rel 4.5.0),
@@ -365,8 +365,8 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   (C021), entra `ConcurrentReferenceHashMap` (C031). `artifact_id` estable por ruta.
 - **Se conserva** 2025-11-12 como momento posterior de la misma muestra y como integración
   secundaria con la muestra de G1A.
-- **Evidencia:** `sprint1_E3/data/E2_commons-collections_2025-04-19/`,
-  `sprint1_E3/data/ARTIFACTS_commons-collections*.csv`, `sprint1_E3/scripts/run_e3.sh`.
+- **Evidencia:** `sprint2_E3/data/E2_commons-collections_2025-04-19/`,
+  `sprint2_E3/data/ARTIFACTS_commons-collections*.csv`, `sprint2_E3/scripts/run_e3.sh`.
 
 ### H-07 · HALLAZGO — La magnitud de la contaminación por eventos globales depende del corte
 - **Observación:** con el mismo umbral (50), en 4.5.0 sólo **1 de 30** archivos tiene la recencia
@@ -375,4 +375,13 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
 - **Implicación:** el hallazgo central de G1A (H-03) sigue siendo válido como mecanismo, pero la
   cifra 26/30 es propia del corte elegido; en un diseño longitudinal cada snapshot debe
   re-evaluarse.
-- **Evidencia:** `sprint1_E3/data/E2_commons-collections_2025-04-19/D3_EVOLUTION_DATASET_CORREGIDO.csv`.
+- **Evidencia:** `sprint2_E3/data/E2_commons-collections_2025-04-19/D3_EVOLUTION_DATASET_CORREGIDO.csv`.
+
+## 2026-10-25
+
+### D-14 · Decisión — Nomenclatura: el sprint de E1/E2/E3 es el Sprint 2
+- **Decisión:** G1A corresponde al Sprint 1 (como en el entregable paralelo); el sprint de las tres
+  familias de evidencia es el **Sprint 2**. Carpeta `sprint2_E3/`, rama `sprint2-e3`.
+- **Causa:** corrección de nomenclatura de la autora; sustituye el renombre del 2026-10-14.
+- **Efecto:** sólo nombres de carpeta, rama y textos; ningún resultado cambia (salidas regeneradas con
+  `run_e3.sh`, verificación temporal sin cambios).

@@ -1,8 +1,8 @@
 {
   "script": "scripts/extract_cochange.py",
-  "command": "sprint1_E3/scripts/extract_cochange.py --repo repos/commons-lang --project commons-lang --decision-ref rel/commons-lang-3.18.0 --artifacts sprint1_E3/data/E2_commons-lang_Willian_D3_EVOLUTION_DATASET.csv --out sprint1_E3/out/commons-lang",
+  "command": "sprint2_E3/scripts/extract_cochange.py --repo repos/commons-lang --project commons-lang --decision-ref rel/commons-lang-3.18.0 --artifacts sprint2_E3/data/E2_commons-lang_Willian_D3_EVOLUTION_DATASET.csv --out sprint2_E3/out/commons-lang",
   "git_log_command": "git log --no-merges -M --name-status --format=@@%H|%cI|%aI 5b59487808d0b86a94ad7a1ebd4c200e09b7be09",
-  "execution_utc": "2026-10-15T15:51:56+00:00",
+  "execution_utc": "2026-10-25T20:50:39+00:00",
   "git_version": "git version 2.43.0",
   "python_version": "3.13.16",
   "repo_remote": "https://github.com/apache/commons-lang.git",

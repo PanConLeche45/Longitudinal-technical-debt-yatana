@@ -15,7 +15,7 @@ foto no permite afirmar evolución, acumulación, persistencia ni predicción.
 > normalizados por KLOC. No hay métricas por archivo → E1 por archivo × tiempo se genera con SonarQube
 > local en el snapshot CIMPS. El snapshot de commons-collections es 4.5.0 (`7f7fb0244`), no 2025-11-12 (E-07).
 
-## 2. Gate G1A (fase previa) (Ruta B: hotspots y contexto de commits/issues/PR)
+## 2. Sprint 1 — Gate G1A (Ruta B: hotspots y contexto de commits/issues/PR)
 
 | | Yatana (este repo) | Willian |
 |---|---|---|
@@ -35,7 +35,7 @@ foto no permite afirmar evolución, acumulación, persistencia ni predicción.
 sistémico del corpus; las migraciones globales arrastran todos los archivos vivos; la regla "identidad
 = R100" no generaliza.
 
-## 3. Sprint 1 — tres familias de evidencia con una sola llave
+## 3. Sprint 2 — tres familias de evidencia con una sola llave
 
 ```
                 project + artifact_id + decision_time
@@ -66,7 +66,7 @@ pipelines continuos de datasets de deuda. **Nuestro aporte posible:** observaci�
 corte estricto, E1+E2+E3 integrados por la misma llave, para medir después el **valor incremental** de
 cada familia con separación temporal.
 
-## 5. Estado de mis actividades del Sprint 1
+## 5. Estado de mis actividades del Sprint 2
 
 | # | Actividad | Estado |
 |---|---|---|

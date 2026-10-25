@@ -1,8 +1,8 @@
-# Sprint 1 — Línea E3: hotspot / co-change
+# Sprint 2 — Línea E3: hotspot / co-change
 
 **Estudiante:** Yatana Roa Moreno — ZS23020600 · **Asesor:** Prof. Martín Mancilla Gómez
 **Línea paralela:** William Tehuatle Sosa (E2, cierre longitudinal de G1A)
-**Fecha:** 2026-10-05 · **Rama:** `sprint1-e3`
+**Fecha:** 2026-10-05 · **Rama:** `sprint2-e3`
 
 > Todos los resultados de esta carpeta son **piloto / exploratorios**, no confirmatorios.
 > Mismas distinciones que en G1A: co-change ≠ deuda técnica · asociación ≠ causalidad ·
@@ -58,7 +58,7 @@ Nota: estos momentos **no** cierran el punto 7 de G1A (serie T0…Tn de E2).
 
 ```bash
 # desde la raíz del repositorio (Git Bash)
-bash sprint1_E3/scripts/run_e3.sh
+bash sprint2_E3/scripts/run_e3.sh
 ```
 Clona los dos repositorios en `repos/` si no existen, corre el extractor en los 3 momentos de cada
 piloto (+ sensibilidad del umbral), integra E1+E2+E3 y ejecuta `check_temporal.py`.
@@ -160,9 +160,9 @@ hallazgo central de G1A es real, pero su magnitud es propia del corte elegido.
 ## 10. Archivos de esta carpeta
 
 ```
-sprint1_E3/
+sprint2_E3/
 ├── README.md                         (este archivo)
-├── 00_RECAPITULACION_PROYECTO.md     contexto CIMPS → Gate G1A → Sprint 1
+├── 00_RECAPITULACION_PROYECTO.md     contexto CIMPS → Sprint 1 (G1A) → Sprint 2
 ├── L1_FICHA_Bochicchio2025.md        lectura asignada
 ├── P1_PRACTICA_MANUAL_COCHANGE.md    práctica manual (10 commits por piloto)
 ├── M_MEDIDAS_CANDIDATAS.md           M1 y M2: fórmula, ejemplo manual, limitaciones
