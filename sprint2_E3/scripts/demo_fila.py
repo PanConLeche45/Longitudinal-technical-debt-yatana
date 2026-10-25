@@ -3,6 +3,10 @@
 Uso (desde la raíz del repo):  python sprint2_E3/scripts/demo_fila.py C003
 Sólo lee el CSV ya generado por run_e3.sh; no modifica nada."""
 import csv, sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8")   # acentos bien en Git Bash (Windows)
+except AttributeError:
+    pass
 F = "sprint2_E3/out/commons-collections/INTEGRATED_E1_E2_E3_commons-collections_2025-04-19_mf50.csv"
 SHOW = [("LLAVE", ["project", "artifact_id", "decision_time", "path"]),
         ("E1 · cómo está el código (SonarQube 26.6, snapshot CIMPS 4.5.0)",
