@@ -413,3 +413,20 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   (`absent_filled_with_zero`). Las demás métricas no se rellenan.
 - **Nota:** al regenerar E3 en Windows, git 2.51 escribe las fechas UTC como `Z` en lugar de `+00:00`;
   mismo instante, mismos commits y mismos resultados (verificado).
+
+### E1-02 · Resultado — De dónde sale la diferencia con CIMPS
+| | Producción (`src/main`, 359 archivos) | Pruebas (301 archivos) | Proyecto completo | CIMPS Tabla 2 |
+|---|---|---|---|---|
+| NCLOC | **32,688** | 0 | 33,457 | **32,688** |
+| Code smells | 1,205 | 1,860 | 3,067 | 1,598 |
+| Deuda (min) | 18,406 | 11,710 | 30,116 | 20,448 |
+| Bugs | 29 | 8 | 37 | — |
+- **Lectura:** el alcance de CIMPS es el código de producción Java: su NCLOC coincide exacto con
+  `src/main` y no con el proyecto completo (que suma pruebas y otros lenguajes). Por lo tanto la
+  diferencia en code smells (−393, −24.6 %) y deuda (−2,042 min, −10.0 %) **no es de alcance**, sino
+  de reglas: SonarQube 26.6 con *Sonar way* Java (557 reglas activas) frente a la versión/perfil usados
+  en CIMPS.
+- **Decisión:** E1 por archivo usa sólo producción (mismo alcance que CIMPS). Los conteos de issues
+  no se comparan en valor absoluto con CIMPS; sí se usa NCLOC como control de que el snapshot es el mismo.
+  Pendiente: confirmar en el artículo CIMPS qué versión de SonarQube y perfil se usaron.
+- **Limpieza:** se quitó del repo un `__pycache__` subido por error y se agregó a `.gitignore`.
