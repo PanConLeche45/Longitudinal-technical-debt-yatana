@@ -385,3 +385,12 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
 - **Causa:** corrección de nomenclatura de la autora; sustituye el renombre del 2026-10-14.
 - **Efecto:** sólo nombres de carpeta, rama y textos; ningún resultado cambia (salidas regeneradas con
   `run_e3.sh`, verificación temporal sin cambios).
+
+### E-08 · Error — HTTP 403 al exportar métricas con un token de análisis
+- **Qué pasó:** el análisis de 4.5.0 corrió con un *Global Analysis Token* (`sqa_`), pero la exportación
+  (`api/measures/component_tree`) respondió **403**: ese tipo de token sólo puede enviar análisis, no
+  leer resultados. La espera del paso 4 tampoco podía leer `api/ce/component` y terminó por tiempo.
+- **Corrección:** se usa un *User Token* (`squ_`). `run_e1_sonar.sh` ahora comprueba antes si el token
+  puede leer métricas, y si el proyecto ya está analizado se salta la reanálisis (`FORCE=1` para
+  forzarla). `export_sonar_file_metrics.py` da un mensaje claro ante 401/403.
+- **Efecto en resultados:** ninguno; no se había generado ningún CSV de E1.

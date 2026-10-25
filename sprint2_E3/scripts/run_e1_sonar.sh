@@ -25,7 +25,7 @@ PY=$(command -v python3 || command -v python || true)
 curl -s -o /dev/null "$SONAR_URL/api/system/status" || { echo "SonarQube no responde en $SONAR_URL. Arranca StartSonar.bat y espera 'SonarQube is operational'."; exit 1; }
 
 if [ -z "${SONAR_TOKEN:-}" ]; then
-  read -r -s -p "Pega tu token de SonarQube (empieza con sqa_; no se verá en pantalla) y presiona Enter: " SONAR_TOKEN
+  read -r -s -p "Pega tu token de USUARIO de SonarQube (User Token, empieza con squ_; no se verá en pantalla) y presiona Enter: " SONAR_TOKEN
   echo
 fi
 export SONAR_TOKEN
@@ -33,6 +33,19 @@ export SONAR_TOKEN
   || { echo "El token no es válido. Genera uno nuevo en My Account → Security."; exit 1; }
 echo "[1/5] Token válido."
 
+# Un token de análisis (sqa_) sólo sirve para analizar; para LEER métricas hace falta un User Token (squ_).
+code=$(curl -s -o /dev/null -w '%{http_code}' -u "$SONAR_TOKEN:" "$SONAR_URL/api/measures/component?component=$KEY&metricKeys=ncloc")
+if [ "$code" = "403" ] || [ "$code" = "401" ]; then
+  echo "Este token no puede leer métricas (HTTP $code). Genera un token tipo 'User Token' en My Account → Security y vuelve a correr el script."
+  exit 1
+fi
+SKIP=0
+if [ "$code" = "200" ] && [ "${FORCE:-0}" != "1" ]; then
+  SKIP=1
+  echo "      El proyecto $KEY ya está analizado en SonarQube: me salto los pasos 2-4 (usa FORCE=1 para reanalizar)."
+fi
+
+if [ "$SKIP" = "0" ]; then
 echo "[2/5] Copia limpia del snapshot CIMPS (7f7fb0244)..."
 if [ ! -f "$SNAP/pom.xml" ]; then
   mkdir -p "$SNAP"
@@ -55,6 +68,7 @@ for i in $(seq 1 60); do
   esac
   sleep 5
 done
+fi
 
 echo "[5/5] Exportando métricas por archivo e integrando E1+E2+E3..."
 "$PY" sprint2_E3/scripts/export_sonar_file_metrics.py --sonar-url "$SONAR_URL" --project-key "$KEY" \

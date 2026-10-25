@@ -22,7 +22,7 @@ Salidas:
                                                    fecha de análisis, métricas, comando
 Sólo biblioteca estándar (Python ≥ 3.8).
 """
-import argparse, base64, csv, json, os, sys, urllib.parse, urllib.request
+import argparse, base64, csv, json, os, sys, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone
 
 METRICS = ["ncloc", "functions", "classes", "complexity", "cognitive_complexity",
@@ -36,8 +36,14 @@ def api(base, path, token, **params):
     url = f"{base.rstrip('/')}/{path}?{urllib.parse.urlencode(params)}"
     req = urllib.request.Request(url)
     req.add_header("Authorization", "Basic " + base64.b64encode(f"{token}:".encode()).decode())
-    with urllib.request.urlopen(req, timeout=60) as r:
-        body = r.read().decode("utf-8")
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            body = r.read().decode("utf-8")
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            sys.exit(f"SonarQube respondió {e.code} en {path}: el token no puede leer métricas. "
+                     "Usa un 'User Token' (squ_), no un 'Global Analysis Token' (sqa_).")
+        raise
     return json.loads(body) if body.strip().startswith(("{", "[")) else body
 
 
