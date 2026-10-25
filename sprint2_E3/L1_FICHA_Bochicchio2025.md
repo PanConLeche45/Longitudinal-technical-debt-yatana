@@ -1,96 +1,85 @@
 # L1 — Ficha de lectura: Bochicchio et al. (2025)
 
+**Lectora:** Yatana Roa Moreno (ZS23020600) · **Fecha:** 2026-10-25 · **Sprint 2, línea E3**
+
 **Referencia:** Bochicchio, M., Sas, D., Gilardi, A., & Arcelli Fontana, F. (2025). *An empirical study on
 architectural smells through a pipeline for continuous technical debt assessment.* Information and
 Software Technology, 185, 107783. https://doi.org/10.1016/j.infsof.2025.107783 (acceso abierto, CC BY)
 
-**Datos y replicación:** Zenodo 13827946 (dataset), 15051564 (paquete de replicación);
-pipeline: github.com/Arcan-Tech/arcan-pipeline; co-change: github.com/darius-sas/ccan-rs
-
-> Borrador de trabajo. Debo reescribirlo con mis palabras antes de entregarlo.
-
 ---
 
-## 1. Objetivo y pregunta
-Dos metas: (a) un **pipeline** en Apache Airflow que genera datasets de deuda arquitectónica de forma
-continua con Arcan 2.9.0, y (b) un estudio empírico (GQM) con una sola RQ: *¿los pares de archivos
-afectados por smells arquitectónicos tienen mayor probabilidad de co-cambiar que los pares limpios?*
+## 1. Objetivo
+Los autores construyeron un *pipeline* que **mide** la deuda técnica arquitectónica de forma automática
+en muchos proyectos (no la elimina: la detecta y la registra, para no hacerlo a mano). Con esos datos
+estudiaron una sola pregunta: **¿los archivos con *smells* arquitectónicos cambian juntos más seguido que
+los que no tienen?**
+
+Un *smell* arquitectónico es un mal diseño en cómo se conectan las partes del sistema (por ejemplo, un
+archivo del que dependen demasiados otros, o archivos que dependen unos de otros en círculo).
 
 ## 2. Unidad de análisis
-**El par de archivos** dentro de un proyecto (no el archivo individual). Cada par se clasifica en
-*smelly* (ambos archivos con smell), *mixed* (uno) o *clean* (ninguno). El análisis estadístico se hace
-**por proyecto** (118 muestreados, 112 con resultados completos: 60 Java / 58 C# muestreados).
+**Parejas de archivos** del mismo proyecto, porque el co-change es una relación entre dos archivos (no son
+clones ni duplicados). Cada pareja se clasifica en:
+- ***smelly***: los dos archivos tienen smell;
+- ***mixed***: sólo uno tiene smell;
+- ***clean***: ninguno tiene smell.
 
 ## 3. Definición de co-change
-- **Co-change:** número de veces que los dos archivos se modificaron "simultáneamente". Los commits se
-  **agrupan por día de desarrollo**: dos archivos cambiados el mismo día cuentan como co-change aunque
-  estén en commits distintos.
-- **Co-change rate (variable dependiente):** co-changes del par ÷ número de versiones del proyecto;
-  lo interpretan como la probabilidad observada de co-cambiar.
-- Es su propia implementación (basada en Kouroshfar et al. 2015 y Sas et al. 2021), publicada como `ccan-rs`.
+Dos archivos que se modifican juntos. Ellos lo cuentan **por día** y no por commit: si A y B cambian el
+mismo día, aunque sea en commits distintos, cuenta como co-change. Problema: se mezclan cambios que no
+tienen relación entre sí. Yo lo cuento **por commit**.
 
 ## 4. Fuente de datos
-- Repositorios de GitHub; smells detectados por **Arcan 2.9.0** (Hublike, Cyclic, Unstable Dependency y God
-  Component) sobre versiones muestreadas por el pipeline (releases o 1 commit/mes si no hay releases).
-- Co-changes desde el historial de la **rama principal**, **todos** los commits incluido el inicial.
-- Filtros: Java y C#, ≥ 100 estrellas, ≥ 10,000 LOC y > 10 archivos; se quitan repos demo/examen/test;
-  muestreo aleatorio del 12.5 %. Smells con ATDI < 10 y archivos < 20 LOC se descartan.
+Proyectos de **GitHub** en **Java y C#** (≥ 100 estrellas, ≥ 10,000 líneas de código). Los smells se
+detectaron con la herramienta **Arcan** (4 tipos de smell). **112 proyectos** con resultados completos.
 
 ## 5. Construcción temporal
-- El pipeline sí es temporal en la **ingesta** (muestreo logarítmico de releases: `maxRel(n)=⌊6·log10(n+1)⌋`).
-- Pero el estudio es **transversal**: la etiqueta *smell-affected* se toma del dataset de la última
-  ejecución y el co-change se cuenta **sobre toda la historia de la rama principal**. El artículo no
-  describe un corte que impida usar commits **posteriores** al momento en que se observó el smell, ni una
-  separación pasado/futuro. → Para nosotros, esto es justo la amenaza de *temporal leakage* que el
-  sprint prohíbe; no puedo reutilizar su conteo tal cual.
+**No separan pasado y futuro**: toman el smell de la última versión y cuentan los co-changes de **toda**
+la historia, incluido lo que pasó después. Para mi trabajo eso es **fuga de información del futuro**
+(*temporal leakage*). Por eso yo sólo uso commits **anteriores al `decision_time`**.
+Ejemplo de mi práctica manual: el commit `845c0e540` (COLLECTIONS-722) es de agosto de 2025, posterior
+al snapshot CIMPS 4.5.0 (19-abr-2025), y mi extractor **no lo usa**; en total quedaron fuera 507 commits
+posteriores.
 
 ## 6. Variables
 | Variable | Rol |
 |---|---|
-| Smell-Affected (0, 1 o 2 archivos del par con smell de ATDI > 10) | Independiente |
-| Co-change rate | Dependiente |
-| Nº de smells en cada archivo del par | Descriptiva |
-| Categoría LOC del par (XS/S/M/L por cuartiles; el par toma la mayor) | Control de confusor |
+| Tipo de pareja (*smelly*, *mixed*, *clean*) | Independiente: lo que se compara |
+| Qué tan seguido cambia junta la pareja (*co-change rate*) | Dependiente: lo que se mide |
+| Tamaño de los archivos (líneas de código) | Control: un archivo grande cambia más sólo por ser grande |
 
 ## 7. Comparación realizada
-Por proyecto, **Mann-Whitney U unilateral** en tres pruebas: A smelly > clean, B mixed > clean,
-C smelly > mixed; α = 0.05; corrección **Benjamini–Hochberg (FDR)**; tamaño del efecto con **CLES** y
-**correlación rango-biserial**. Se repite por categoría LOC.
+En **cada proyecto por separado** (para que los proyectos grandes no dominen el resultado) comparan
+*smelly* contra *clean*, *mixed* contra *clean* y *smelly* contra *mixed* con una prueba estadística
+(Mann-Whitney), corrigiendo por hacer muchas pruebas a la vez, y lo repiten por tamaño de archivo.
 
 ## 8. Resultados
-- H0 rechazada en 78.57 % (A), 63.39 % (B) y 71.43 % (C) de los 112 proyectos.
-- Medianas del efecto: A CLES 0.666 / RBC 0.333; B 0.436 / −0.129; C 0.620 / 0.240.
-- El efecto crece con el tamaño: en XS se rechaza A en 47.44 % de proyectos; en L, 76.47 %.
-- Más marcado en Java; tasas de co-change globalmente bajas (la mayoría de pares nunca co-cambia).
-- Pipeline: 34,983 versiones de 13,451 proyectos, ~1.2 mil millones de LOC, ~7 M instancias de smell,
-  88 % de análisis exitosos (C# el peor por dependencias de Windows).
-
-**Observación crítica mía:** en la prueba B la mediana del efecto es **negativa** (CLES < 0.5, RBC < 0)
-aunque se rechaza H0 en el 63 % de proyectos; el texto lo resume como "mixed > clean", pero el efecto
-típico apunta a lo contrario o a una diferencia muy débil. Vale la pena mencionarlo al profesor.
+- En casi **8 de cada 10 proyectos** (78.6 %), las parejas *smelly* cambian juntas más que las *clean*.
+- El efecto es **más fuerte en archivos grandes**.
+- En *mixed* contra *clean* el efecto típico fue **casi nulo o al revés**, aunque el artículo lo presenta
+  como "mixed > clean"; vale la pena señalarlo.
+- La mayoría de las parejas casi nunca cambian juntas.
 
 ## 9. Amenazas a la validez
-- **Del artículo:** constructo (todo depende de la detección de Arcan; herramientas de deuda no coinciden
-  entre sí, Lefever et al. 2021); criterios de inclusión amplios; significancia estadística ≠ práctica
-  (mitigado con tamaño del efecto); sólo 4 tipos de smell y sólo Java/C#; datos sesgados a versiones recientes.
-- **Las que yo agrego para nuestro uso:** (1) sin corte temporal → posible fuga de información;
-  (2) agrupar por día mezcla trabajo no relacionado de distintas personas; (3) no filtran commits
-  masivos (licencias, formato), que inflan co-change; (4) el denominador "nº de versiones" depende del
-  muestreo del pipeline, no de la actividad real; (5) es correlación, no causalidad.
+**La más importante para mi trabajo: usan el futuro.** Al contar co-changes con toda la historia, sin
+corte de fecha, el resultado puede verse mejor de lo que es.
 
-## 10. Elementos reutilizables
-1. Co-change como **proxy de acoplamiento lógico**, normalizado (rate) para comparar archivos.
-2. Control explícito del **tamaño (LOC)** como confusor → en nuestro experimento, estratificar por LOC (E1).
-3. Análisis **por proyecto** + efecto + FDR, en lugar de mezclar proyectos de tamaños distintos.
-4. Arcan y su dataset en Zenodo como posible **fuente adicional de E1** (smells arquitectónicos).
-5. El patrón de *pipeline* reproducible (ingesta → ejecución → generación) para nuestros scripts.
+Otras:
+- No quitan los **commits masivos** (cambios de licencia o formato que tocan cientos de archivos), que
+  inflan el co-change. Yo los quito con un límite de 50 archivos.
+- Contar por día mezcla cambios no relacionados.
+- Todo depende de lo que detecte **Arcan**; otra herramienta podría encontrar smells distintos. Sólo 4
+  tipos de smell y sólo Java y C#.
+- Muestra que smell y co-change van juntos (correlación), no que uno cause el otro.
 
-## 11. Lo que ya NO podemos reclamar como novedoso
-- Que los smells/deuda arquitectónica se **asocian** con mayor co-change (este artículo y Sas et al. 2021).
-- Que el co-change refleja acoplamiento lógico y mayor esfuerzo de mantenimiento.
-- Un pipeline continuo/escalable para producir datasets de deuda técnica.
-- Comparaciones por proyecto con Mann-Whitney + FDR + CLES/RBC, ni controlar por LOC.
+## 10. Qué uso de este artículo y qué aporta lo mío
+**Lo que tomo:**
+1. El **co-change como señal de conexión** entre dos archivos (base de mis medidas M1 y M2).
+2. **Controlar el tamaño** del archivo: ya lo tengo en E1 (líneas de código de SonarQube).
 
-**Lo que sí queda abierto (nuestro gap):** medir co-change **a nivel archivo × tiempo con corte estricto
-en decision_time**, integrado con métricas estáticas (E1) e historia individual (E2) bajo la misma llave,
-para evaluar después —con separación temporal— si E3 aporta información **incremental**.
+**Lo que ya no es novedad:** que los smells o la deuda técnica van de la mano con el co-change; eso ya lo
+demostraron ellos (y Sas et al., 2021).
+
+**Lo nuevo de mi trabajo:** medir el co-change **por archivo y por fecha sin usar información del
+futuro**, y juntarlo con E1 (cómo está el código) y E2 (historia del archivo) bajo **la misma llave**
+`project + artifact_id + decision_time`.
