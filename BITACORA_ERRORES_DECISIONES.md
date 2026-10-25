@@ -430,3 +430,12 @@ Formato: `fecha → problema/decisión → causa → acción → evidencia → e
   no se comparan en valor absoluto con CIMPS; sí se usa NCLOC como control de que el snapshot es el mismo.
   Pendiente: confirmar en el artículo CIMPS qué versión de SonarQube y perfil se usaron.
 - **Limpieza:** se quitó del repo un `__pycache__` subido por error y se agregó a `.gitignore`.
+
+### H-08 · Hallazgo — Con E1 real: M1 sigue el tamaño y la historia; M2 se relaciona al revés con el tamaño
+- **Qué se vio (piloto, 30 archivos, Spearman, 2025-04-19):** M1 (`ccd_k2`) vs E2 `prior_commits` ρ = 0.96 y
+  vs E1 NCLOC ρ = 0.59 / code smells ρ = 0.56. M2 (`max_conf_k2`) vs E2 ρ = −0.07, pero vs E1 NCLOC
+  ρ = −0.62 y complejidad ρ = −0.62.
+- **Lectura:** M2 no repite la historia (E2), pero los archivos chicos, con pocos commits, tienden a dar
+  confianzas altas (p. ej. 2 de 4 = 0.50). M2 debe leerse junto con el número de commits y controlando
+  el tamaño (como hacen Bochicchio et al., 2025). Exploratorio; n = 30, un proyecto, sin pruebas de hipótesis.
+- **Apoyo para la demo:** `python sprint2_E3/scripts/demo_fila.py C003` muestra una fila integrada en vertical.
