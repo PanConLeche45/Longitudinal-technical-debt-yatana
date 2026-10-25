@@ -1,0 +1,228 @@
+{
+  "script": "sprint2_E3/scripts/export_sonar_file_metrics.py",
+  "command": "sprint2_E3/scripts/export_sonar_file_metrics.py --sonar-url http://localhost:9000 --project-key commons-collections_4.5.0_7f7fb0244 --project commons-collections --decision-time 2025-04-19 --decision-sha 7f7fb0244abc940a2e9dd28b67508c0483a58c3e --artifacts sprint2_E3/data/ARTIFACTS_commons-collections.csv --out sprint2_E3/data",
+  "execution_utc": "2026-10-25T21:21:35+00:00",
+  "sonarqube_version": "26.6.0.123539",
+  "project_key": "commons-collections_4.5.0_7f7fb0244",
+  "project": "commons-collections",
+  "decision_time": "2025-04-19",
+  "decision_sha": "7f7fb0244abc940a2e9dd28b67508c0483a58c3e",
+  "quality_profiles": [
+    {
+      "language": "azureresourcemanager",
+      "name": "Sonar way",
+      "key": "1f0b3bc8-8e54-410c-b0b0-b781bb3aca83",
+      "isDefault": true
+    },
+    {
+      "language": "cloudformation",
+      "name": "Sonar way",
+      "key": "ad7224af-0053-4974-b6e6-8af7c2289d3c",
+      "isDefault": true
+    },
+    {
+      "language": "cs",
+      "name": "Sonar way",
+      "key": "8c6b7728-a378-436a-b4f3-fc11b0ef11bb",
+      "isDefault": true
+    },
+    {
+      "language": "css",
+      "name": "Sonar way",
+      "key": "144b7f7e-d830-41a7-8b28-fa8a8b726d0a",
+      "isDefault": true
+    },
+    {
+      "language": "docker",
+      "name": "Sonar way",
+      "key": "87f55836-232a-4644-8be4-bd6646781bc2",
+      "isDefault": true
+    },
+    {
+      "language": "flex",
+      "name": "Sonar way",
+      "key": "60c44762-3b04-4c67-8ba5-cef33f03e2a1",
+      "isDefault": true
+    },
+    {
+      "language": "go",
+      "name": "Sonar way",
+      "key": "870ec829-2823-4a54-ae9f-15460e9eae8e",
+      "isDefault": true
+    },
+    {
+      "language": "ipynb",
+      "name": "Sonar way",
+      "key": "43c8e51a-0609-45c9-bd5f-1f7f10bbfe06",
+      "isDefault": true
+    },
+    {
+      "language": "java",
+      "name": "Sonar way",
+      "key": "1f45377f-6371-4842-bdca-f5c94e4f0d30",
+      "isDefault": true
+    },
+    {
+      "language": "js",
+      "name": "Sonar way",
+      "key": "f8180dae-f64c-44af-8562-3713546fc3c2",
+      "isDefault": true
+    },
+    {
+      "language": "json",
+      "name": "Sonar way",
+      "key": "5212c310-ca37-470c-ba62-43fd7ff97638",
+      "isDefault": true
+    },
+    {
+      "language": "jsp",
+      "name": "Sonar way",
+      "key": "4b77e53d-a729-42e3-8d96-e10dba5658a6",
+      "isDefault": true
+    },
+    {
+      "language": "kotlin",
+      "name": "Sonar way",
+      "key": "53c069af-a321-457a-b2f1-5bca77f60b06",
+      "isDefault": true
+    },
+    {
+      "language": "kubernetes",
+      "name": "Sonar way",
+      "key": "1129781a-ec61-49a2-9ea7-56fe527b8df9",
+      "isDefault": true
+    },
+    {
+      "language": "php",
+      "name": "Sonar way",
+      "key": "6df48822-9ecd-4d59-8c99-7035e482dc20",
+      "isDefault": true
+    },
+    {
+      "language": "py",
+      "name": "Sonar way",
+      "key": "9b38babc-db82-460a-96ff-7f7f55f09724",
+      "isDefault": true
+    },
+    {
+      "language": "ruby",
+      "name": "Sonar way",
+      "key": "9ba2b8fb-fabe-4001-8f8b-86a25ebdce1f",
+      "isDefault": true
+    },
+    {
+      "language": "rust",
+      "name": "Sonar way",
+      "key": "d4ceece5-2fb5-4ab8-bd0d-479c9197b812",
+      "isDefault": true
+    },
+    {
+      "language": "scala",
+      "name": "Sonar way",
+      "key": "5da6c2a2-dd7a-4ecf-9075-41b1d2ca15b6",
+      "isDefault": true
+    },
+    {
+      "language": "secrets",
+      "name": "Sonar way",
+      "key": "81cb5f53-2d5a-45e2-9a38-e8859fa3e50b",
+      "isDefault": true
+    },
+    {
+      "language": "terraform",
+      "name": "Sonar way",
+      "key": "a1cdc04c-2576-4329-9349-3f2d68fe329b",
+      "isDefault": true
+    },
+    {
+      "language": "text",
+      "name": "Sonar way",
+      "key": "6cc35053-b7cc-461a-b229-5470a2f7b54a",
+      "isDefault": true
+    },
+    {
+      "language": "ts",
+      "name": "Sonar way",
+      "key": "d989d7dc-8c4f-4416-8f99-fcc0c60a2360",
+      "isDefault": true
+    },
+    {
+      "language": "vbnet",
+      "name": "Sonar way",
+      "key": "087c529d-60b9-401c-9720-3ee337e22fb8",
+      "isDefault": true
+    },
+    {
+      "language": "web",
+      "name": "Sonar way",
+      "key": "3a83af86-182c-4b8a-9a9e-5fcc90796d33",
+      "isDefault": true
+    },
+    {
+      "language": "xml",
+      "name": "Sonar way",
+      "key": "846f36df-1e07-4a7a-ab25-a175724cd369",
+      "isDefault": true
+    },
+    {
+      "language": "yaml",
+      "name": "Sonar way",
+      "key": "6eea0188-919d-4b98-800a-290a4bc57ba7",
+      "isDefault": true
+    }
+  ],
+  "last_analysis": {
+    "key": "59595586-377b-40b8-a88b-9a68f73fe1f4",
+    "date": "2026-10-25T15:05:44-0600",
+    "events": [
+      {
+        "key": "0ceb218f-1907-4835-8f5e-33200f0292b4",
+        "category": "SQ_UPGRADE",
+        "name": "26.6.0.123539"
+      },
+      {
+        "key": "6aa7a88d-2186-49da-818d-fa4ca17c7059",
+        "category": "VERSION",
+        "name": "4.5.0"
+      }
+    ],
+    "projectVersion": "4.5.0",
+    "manualNewCodePeriodBaseline": false,
+    "detectedCI": "undetected"
+  },
+  "metrics": [
+    "ncloc",
+    "functions",
+    "classes",
+    "complexity",
+    "cognitive_complexity",
+    "code_smells",
+    "sqale_index",
+    "bugs",
+    "vulnerabilities",
+    "security_hotspots",
+    "violations",
+    "duplicated_lines_density",
+    "sqale_rating",
+    "reliability_rating",
+    "security_rating"
+  ],
+  "per_kloc": [
+    "sqale_index",
+    "code_smells",
+    "bugs",
+    "vulnerabilities",
+    "violations",
+    "complexity"
+  ],
+  "files_exported": 359,
+  "files_in_artifact_registry": 31,
+  "file_level_totals": {
+    "ncloc": 32688.0,
+    "code_smells": 1205.0,
+    "sqale_index": 18406.0,
+    "bugs": 29.0,
+    "violations": 1234.0
+  },
+  "note": "Totales por archivo comparables con la Tabla 2 de CIMPS (nivel proyecto) para verificar consistencia del instrumento; no son idénticos si cambia versión/perfil."
+}

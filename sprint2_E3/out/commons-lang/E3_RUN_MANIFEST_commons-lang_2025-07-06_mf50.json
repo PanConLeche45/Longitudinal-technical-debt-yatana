@@ -2,16 +2,16 @@
   "script": "scripts/extract_cochange.py",
   "command": "sprint2_E3/scripts/extract_cochange.py --repo repos/commons-lang --project commons-lang --decision-ref rel/commons-lang-3.18.0 --artifacts sprint2_E3/data/E2_commons-lang_Willian_D3_EVOLUTION_DATASET.csv --out sprint2_E3/out/commons-lang",
   "git_log_command": "git log --no-merges -M --name-status --format=@@%H|%cI|%aI 5b59487808d0b86a94ad7a1ebd4c200e09b7be09",
-  "execution_utc": "2026-10-25T20:50:39+00:00",
-  "git_version": "git version 2.43.0",
-  "python_version": "3.13.16",
+  "execution_utc": "2026-10-25T21:21:57+00:00",
+  "git_version": "git version 2.51.2.windows.1",
+  "python_version": "3.14.7",
   "repo_remote": "https://github.com/apache/commons-lang.git",
-  "repo_head_at_run": "682a8ff5cddfeedecb98f62ac7c8d94b5ff65f33",
+  "repo_head_at_run": "34a3bd9b7d15f5aac5f30af1b5b1fd4dd9bbd7c3",
   "project": "commons-lang",
   "decision_ref": "rel/commons-lang-3.18.0",
   "decision_sha": "5b59487808d0b86a94ad7a1ebd4c200e09b7be09",
   "decision_time": "2025-07-06",
-  "decision_commit_date": "2025-07-06T17:31:40+00:00",
+  "decision_commit_date": "2025-07-06T17:31:40Z",
   "params": {
     "max_files": 50,
     "k": 2,
@@ -22,7 +22,7 @@
   "universe_size": 254,
   "range": {
     "first_commit_used": "6627f7ad8fb08d6c23b83d6c9f0a6830e9e7085a",
-    "first_commit_date": "2002-07-19T03:35:56+00:00",
+    "first_commit_date": "2002-07-19T03:35:56Z",
     "last_commit_used": "8cc6363673bbcbff0777dc20343d207a443eed4a",
     "last_commit_date": "2025-07-04T14:23:55-04:00"
   },
@@ -34,6 +34,6 @@
     "max_author_date_used": "2025-07-04T14:23:55-04:00",
     "all_dates_le_decision_time": true,
     "only_ancestors_of_decision_commit": true,
-    "commits_after_decision_in_clone_not_used": 1352
+    "commits_after_decision_in_clone_not_used": 1439
   }
 }
