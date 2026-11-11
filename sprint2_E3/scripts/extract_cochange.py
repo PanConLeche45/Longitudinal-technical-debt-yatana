@@ -136,6 +136,13 @@ def main():
     # Verificación temporal (criterio de cierre)
     max_cdate = max(datetime.fromisoformat(u[1]) for u in used)
     max_adate = max(datetime.fromisoformat(u[2]) for u in used)
+
+    # Verificación independiente de ancestría: que cada commit usado pertenezca de
+    # hecho a la historia del decision_sha, en lugar de darlo por supuesto porque
+    # `git log <sha>` sólo recorre ancestros (petición de M. Mancilla, punto 1).
+    ancestors = set(git(a.repo, "rev-list", sha).split())
+    non_ancestors = [h for h, _cd, _ad, _k in used if h not in ancestors]
+    ancestry_ok = not non_ancestors
     temporal_ok = max_cdate <= decision_dt and max_adate <= decision_dt \
         and max_cdate.date().isoformat() <= decision_day
     newer = git(a.repo, "rev-list", "--count", "--no-merges", f"{sha}..HEAD").strip()
@@ -205,8 +212,15 @@ def main():
             "max_committer_date_used": max_cdate.isoformat(),
             "max_author_date_used": max_adate.isoformat(),
             "all_dates_le_decision_time": temporal_ok,
-            "only_ancestors_of_decision_commit": True,
+            "only_ancestors_of_decision_commit": ancestry_ok,
             "commits_after_decision_in_clone_not_used": int(newer),
+        },
+        "ancestry_check": {
+            "method": "pertenencia de cada commit usado al conjunto `git rev-list <decision_sha>`",
+            "ancestors_of_decision_sha": len(ancestors),
+            "commits_verified": len(used),
+            "commits_not_ancestors": len(non_ancestors),
+            "examples_not_ancestors": non_ancestors[:5],
         },
     }
     with open(os.path.join(a.out, f"E3_RUN_MANIFEST_{tag}.json"), "w", encoding="utf-8") as fm:
@@ -214,9 +228,12 @@ def main():
 
     print(json.dumps({k: manifest[k] for k in
                       ("decision_sha", "decision_time", "n_commits_used",
-                       "n_commits_excluded_large", "temporal_check")}, indent=2))
+                       "n_commits_excluded_large", "temporal_check", "ancestry_check")}, indent=2))
     if not temporal_ok:
         sys.exit("FALLA TEMPORAL: se usó un commit posterior al decision_time")
+    if not ancestry_ok:
+        sys.exit(f"FALLA DE ANCESTRÍA: {len(non_ancestors)} commits usados no pertenecen "
+                 f"a la historia de {sha[:9]}: {non_ancestors[:5]}")
 
 
 if __name__ == "__main__":

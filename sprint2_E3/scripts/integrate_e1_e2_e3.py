@@ -52,8 +52,18 @@ def main():
         r["decision_time"] = r["decision_time"][:10]
         aid = amap.get(r["path"]) or r.get("artifact_id")
         r["artifact_id"] = aid
-        e2[(a.project, aid, r["decision_time"])] = r
-    e3 = {(r["project"], r["artifact_id"], r["decision_time"]): r for r in read_csv(a.e3)}
+        key = (a.project, aid, r["decision_time"])
+        if key in e2:
+            sys.exit(f"LLAVE DUPLICADA en E2: {key}. La llave project+artifact_id+"
+                     f"decision_time debe ser única; corrige el origen antes de integrar.")
+        e2[key] = r
+    e3 = {}
+    for r in read_csv(a.e3):
+        key = (r["project"], r["artifact_id"], r["decision_time"])
+        if key in e3:
+            sys.exit(f"LLAVE DUPLICADA en E3: {key}. La llave project+artifact_id+"
+                     f"decision_time debe ser única; corrige el origen antes de integrar.")
+        e3[key] = r
     e1 = {}
     e1_source = "provisional_git_show"
     if a.e1:
@@ -102,8 +112,16 @@ def main():
             if k in r2:
                 row[f"e2_{k}"] = r2[k]
         # ---- E3 (Yatana)
-        for k in ("n_commits_e3", "n_commits_excluded_large", "ccd_k2", "max_conf_k2", "top_partner", "top_partner_count"):
-            row[f"e3_{k}"] = r3[k]
+        for k in ("exists_at_decision", "n_commits_e3", "n_commits_excluded_large",
+                  "ccd_k2", "max_conf_k2", "top_partner", "top_partner_count"):
+            if k in r3:
+                row[f"e3_{k}"] = r3[k]
+        # El archivo debe existir en el árbol del decision commit: si no, la fila no
+        # describe un artefacto observable en ese corte (petición de M. Mancilla, punto 1).
+        if r3.get("exists_at_decision") not in (None, "1"):
+            checks["issues"].append(
+                f"{key}: el archivo no existe en el árbol de {sha[:9]} (exists_at_decision="
+                f'{r3.get("exists_at_decision")})')
         # ---- chequeo cruzado de identidad E2 vs E3 (no corrige, sólo marca)
         # E2 cuenta también los commits masivos; se suman para comparar lo comparable
         pc = int(r2["prior_commits"])
