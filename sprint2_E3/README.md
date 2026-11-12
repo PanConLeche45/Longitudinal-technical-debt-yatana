@@ -148,14 +148,24 @@ hallazgo central de G1A es real, pero su magnitud es propia del corte elegido.
 
 ## 9. Pendientes
 
-- [ ] Confirmar con el profesor el piloto oficial de la tabla integrada (D-08).
+Estado al 2026-11-12. El detalle por entregable, con rama, commit y evidencia, está en
+`INDICE_ENTREGABLES.md`.
+
 - [x] Leer el artículo CIMPS: E1 de CIMPS es **por proyecto** (16 indicadores SonarQube); no hay E1 por archivo.
-- [ ] Generar E1 por archivo con SonarQube local en `7f7fb0244` → `data/E1_FILE_METRICS_commons-collections_2025-04-19.csv` (run_e3.sh lo integra solo).
+- [x] Generar E1 por archivo con SonarQube local en `7f7fb0244` → `data/E1_FILE_METRICS_commons-collections_2025-04-19.csv` (corrida del 2026-10-25; versión del analizador, perfil y alcance en `data/E1_RUN_MANIFEST_commons-collections_2025-04-19.json`).
 - [x] Práctica manual en mi terminal (2026-10-14, 10/10 coincide) — repetir el filtro en `7f7fb0244` (tabla A2).
-- [ ] Revisar con Willian H-04 antes de cerrar la tabla integrada (no borrar archivos: documentar).
-- [ ] Re-ejecutar `run_e3.sh` en mi equipo y registrar versiones.
+- [x] Re-ejecutar el extractor y registrar versiones: el manifiesto las registra y la reejecución reproduce los CSV de medidas sin diferencias.
 - [x] Verificación local de G1A en mi equipo: `CollectionUtils` = 225 commits / 22 contribuidores (2026-10-14).
-- [ ] Reescribir la ficha L1 con mis palabras.
+- [x] Reescribir la ficha L1 con mis palabras (`L1_FICHA_Bochicchio2025.md`, commit `392c6c6`).
+- [x] Revisar con Willian H-04: al reconstruir la integración de commons-lang con su E2 corregido cambian 11 filas y los 8 casos marcados se resuelven. Nada se borró, todo quedó documentado.
+- [x] Verificación de ancestría, rechazo de llaves duplicadas y propagación de `exists_at_decision`, con pruebas positiva y negativas (`scripts/test_integracion.sh`, 3/3).
+
+Abiertos:
+
+- [ ] Confirmar con el profesor el piloto oficial de la tabla integrada (D-08).
+- [ ] Decidir con el profesor si los casos de linaje marcados se excluyen de la tabla o basta con señalarlos.
+- [ ] Serie de snapshots T0…Tn de mi piloto (punto 7 del Sprint 1, sigue sin construirse).
+- [ ] Propuesta conjunta de preparación del experimento (cinco preguntas), con William.
 
 ## 10. Archivos de esta carpeta
 
